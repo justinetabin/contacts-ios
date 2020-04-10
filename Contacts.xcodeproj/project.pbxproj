@@ -19,6 +19,7 @@
 		CFAFEDED24404C1F006557D1 /* ContactsApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAFEDEC24404C1F006557D1 /* ContactsApiTests.swift */; };
 		CFAFEDEF24404C61006557D1 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAFEDEE24404C61006557D1 /* Contact.swift */; };
 		CFAFEDF124406272006557D1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAFEDF024406272006557D1 /* Constants.swift */; };
+		CFAFEDF42440AEC9006557D1 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAFEDF32440AEC9006557D1 /* Observable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		CFAFEDEC24404C1F006557D1 /* ContactsApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsApiTests.swift; sourceTree = "<group>"; };
 		CFAFEDEE24404C61006557D1 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		CFAFEDF024406272006557D1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CFAFEDF32440AEC9006557D1 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				CFAFEDEB24404C0E006557D1 /* Services */,
+				CFAFEDF22440AEB2006557D1 /* Common */,
 				CFAFEDD524401ECF006557D1 /* Info.plist */,
 			);
 			path = ContactsTests;
@@ -176,6 +179,14 @@
 				CFAFEDEC24404C1F006557D1 /* ContactsApiTests.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		CFAFEDF22440AEB2006557D1 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CFAFEDF32440AEC9006557D1 /* Observable.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFAFEDF42440AEC9006557D1 /* Observable.swift in Sources */,
 				CFAFEDED24404C1F006557D1 /* ContactsApiTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
