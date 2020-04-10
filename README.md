@@ -1,6 +1,7 @@
 # Contacts iOS
 
 [![Build Status](https://travis-ci.com/justinetabin/contacts-ios.svg?branch=master)](https://travis-ci.com/justinetabin/contacts-ios)
+[![codecov](https://codecov.io/gh/justinetabin/contacts-ios/branch/master/graph/badge.svg)](https://codecov.io/gh/justinetabin/contacts-ios)
 
 A mobile app client for <a href="https://github.com/justinetabin/contacts-service#contacts-rest-api">**Contacts REST API**</a>.
 
