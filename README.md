@@ -11,5 +11,5 @@ This project's architecture highlights separation of concerns.
 ### Worker Layer
 - Encapsulates the complex business or presentation logic and make them reusable.
 
-### Interface Layer
-- The UI and/or API that can be easily added or swapped in and out without changing any business logic.
+### Scene Layer
+- The UI that can be easily added or swapped in and out without changing any business logic.
