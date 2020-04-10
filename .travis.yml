@@ -1,5 +1,5 @@
 language: swift
 xcode_project: Contacts.xcodeproj
-xcode_scheme: ContactsTests
-xcode_destination: platform=iOS Simulator,OS=10.1,name=iPad Pro (9.7-inch)
+xcode_scheme: Contacts
+xcode_destination: platform=iOS Simulator,OS=13.3,name=iPhone 11 Pro Max
 osx_image: xcode11.3
