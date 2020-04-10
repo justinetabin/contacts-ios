@@ -37,7 +37,7 @@ class ContactsApiTests: XCTestCase {
         }
         
         // then
-        waitForExpectations(timeout: 10.0, handler: nil)
+        waitForExpectations(timeout: 60.0, handler: nil)
         XCTAssertNotNil(fetchedContacts)
         XCTAssertNil(gotError)
     }
@@ -93,7 +93,7 @@ class ContactsApiTests: XCTestCase {
         }
         
         // then
-        waitForExpectations(timeout: 10.0, handler: nil)
+        waitForExpectations(timeout: 60.0, handler: nil)
         
         XCTAssertNotNil(createdContact)
         XCTAssertNil(gotCreateError)
