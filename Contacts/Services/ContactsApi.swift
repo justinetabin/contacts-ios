@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ContactsApi {
+class ContactsApi: ContactsStoreProtocol {
     private var httpClient: HTTPClient
     
     init() {
