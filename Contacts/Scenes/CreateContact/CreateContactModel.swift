@@ -1,13 +1,13 @@
 //
-//  ListContactsModel.swift
+//  CreateContactModel.swift
 //  Contacts
 //
-//  Created by Justine Tabin on 4/11/20.
+//  Created by Justine Tabin on 4/12/20.
 //  Copyright © 2020 Justine Tabin. All rights reserved.
 //
 
 import Foundation
 
-struct ListContactsModel {
+struct CreateContactModel {
     
 }

@@ -18,6 +18,7 @@ class ListContactsViewController: UITableViewController {
         super.viewDidLoad()
         
         title = "Contacts"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
         
         tableView.sectionIndexColor = UIColor.systemGray3
         
@@ -27,6 +28,12 @@ class ListContactsViewController: UITableViewController {
             }
         }
         viewModel.input.fetchContacts.value = ()
+    }
+    
+    @objc func didTapAdd() {
+        let createContact = factory.makeCreateContact()
+        createContact.viewModel.input.didCreateContact = viewModel.input.didCreateContact
+        show(createContact, sender: nil)
     }
     
 }

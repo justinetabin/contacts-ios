@@ -49,6 +49,12 @@ class ContactsWorker {
         }
         return contactGroups
     }
+    
+    func createContact(contactToCreate: Contact, completion: @escaping (Contact?) -> Void) {
+        contactsStore.createContact(contactToCreate: contactToCreate) { (contact, error) in
+            completion(contact)
+        }
+    }
 }
 
 protocol ContactsStoreProtocol {

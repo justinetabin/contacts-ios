@@ -11,12 +11,13 @@ import XCTest
 
 class ListContactsViewModelTests: XCTestCase {
     
+    var contactsStore: MockContactsStore!
     var sut: ListContactsViewModel!
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        sut = ListContactsViewModel(factory: DependencyWorker(contactsApi: MockContactsStore()))
+        contactsStore = MockContactsStore()
+        sut = ListContactsViewModel(factory: DependencyWorker(contactsApi: contactsStore))
     }
 
     override func tearDown() {
@@ -57,4 +58,24 @@ class ListContactsViewModelTests: XCTestCase {
         XCTAssert(reloadedData)
     }
 
+    func test_whenCreatedAContact_thenShouldDisplayContact() {
+        // given
+        let expect = expectation(description: "Wait for reloadData.observe() to receive a value")
+        let expectedContact = contactsStore.contacts[0]
+        
+        // when
+        sut.input.reloadData.observe(on: self) { (_) in
+            expect.fulfill()
+        }
+        sut.input.didCreateContact.value = expectedContact
+        
+        // then
+        waitForExpectations(timeout: 1.0, handler: nil)
+        sut.output.displayedContacts.forEach { (displayedContact) in
+            let insertedContact = displayedContact.first { (displayedContact) -> Bool in
+                return displayedContact.fullname == "\(expectedContact.firstName) \(expectedContact.lastName)"
+            }
+            XCTAssertNotNil(insertedContact)
+        }
+    }
 }

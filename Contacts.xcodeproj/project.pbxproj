@@ -10,6 +10,14 @@
 		CF19C6FB2442F24000AFC7A9 /* ListContactsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C6FA2442F24000AFC7A9 /* ListContactsViewModelTests.swift */; };
 		CF19C6FD2443017400AFC7A9 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C6FC2443017400AFC7A9 /* Mocks.swift */; };
 		CF19C70124430AE400AFC7A9 /* ListContactsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C70024430AE400AFC7A9 /* ListContactsViewControllerTests.swift */; };
+		CF19C70424432CB000AFC7A9 /* CreateContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C70324432CB000AFC7A9 /* CreateContactModel.swift */; };
+		CF19C70624432CCE00AFC7A9 /* CreateContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C70524432CCE00AFC7A9 /* CreateContactViewModel.swift */; };
+		CF19C70824432CDA00AFC7A9 /* CreateContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C70724432CDA00AFC7A9 /* CreateContactViewController.swift */; };
+		CF19C70A2443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C7092443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift */; };
+		CF19C70C244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C70B244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift */; };
+		CF8F8753244469380010AFD4 /* ObservableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8F8752244469380010AFD4 /* ObservableTextField.swift */; };
+		CF8F8758244562B00010AFD4 /* CreateContactViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8F8757244562B00010AFD4 /* CreateContactViewModelTests.swift */; };
+		CF8F875A2445AF060010AFD4 /* CreateContactViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8F87592445AF060010AFD4 /* CreateContactViewControllerTests.swift */; };
 		CFAFEDBD24401ECB006557D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAFEDBC24401ECB006557D1 /* AppDelegate.swift */; };
 		CFAFEDBF24401ECB006557D1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAFEDBE24401ECB006557D1 /* SceneDelegate.swift */; };
 		CFAFEDC124401ECB006557D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAFEDC024401ECB006557D1 /* ViewController.swift */; };
@@ -48,6 +56,14 @@
 		CF19C6FA2442F24000AFC7A9 /* ListContactsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContactsViewModelTests.swift; sourceTree = "<group>"; };
 		CF19C6FC2443017400AFC7A9 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		CF19C70024430AE400AFC7A9 /* ListContactsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContactsViewControllerTests.swift; sourceTree = "<group>"; };
+		CF19C70324432CB000AFC7A9 /* CreateContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactModel.swift; sourceTree = "<group>"; };
+		CF19C70524432CCE00AFC7A9 /* CreateContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactViewModel.swift; sourceTree = "<group>"; };
+		CF19C70724432CDA00AFC7A9 /* CreateContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactViewController.swift; sourceTree = "<group>"; };
+		CF19C7092443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactInputDetailTableViewCell.swift; sourceTree = "<group>"; };
+		CF19C70B244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactInputAvatarTableViewCell.swift; sourceTree = "<group>"; };
+		CF8F8752244469380010AFD4 /* ObservableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableTextField.swift; sourceTree = "<group>"; };
+		CF8F8757244562B00010AFD4 /* CreateContactViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactViewModelTests.swift; sourceTree = "<group>"; };
+		CF8F87592445AF060010AFD4 /* CreateContactViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactViewControllerTests.swift; sourceTree = "<group>"; };
 		CFAFEDB924401ECB006557D1 /* Contacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Contacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFAFEDBC24401ECB006557D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CFAFEDBE24401ECB006557D1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				CF19C6F92442F1FB00AFC7A9 /* ListContacts */,
+				CF8F8754244553470010AFD4 /* CreateContact */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -109,6 +126,35 @@
 				CF19C70024430AE400AFC7A9 /* ListContactsViewControllerTests.swift */,
 			);
 			path = ListContacts;
+			sourceTree = "<group>";
+		};
+		CF19C70224432C9B00AFC7A9 /* CreateContact */ = {
+			isa = PBXGroup;
+			children = (
+				CF19C70324432CB000AFC7A9 /* CreateContactModel.swift */,
+				CF19C70524432CCE00AFC7A9 /* CreateContactViewModel.swift */,
+				CF19C70724432CDA00AFC7A9 /* CreateContactViewController.swift */,
+				CF19C70B244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift */,
+				CF19C7092443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift */,
+			);
+			path = CreateContact;
+			sourceTree = "<group>";
+		};
+		CF8F8751244469210010AFD4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CF8F8752244469380010AFD4 /* ObservableTextField.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		CF8F8754244553470010AFD4 /* CreateContact */ = {
+			isa = PBXGroup;
+			children = (
+				CF8F8757244562B00010AFD4 /* CreateContactViewModelTests.swift */,
+				CF8F87592445AF060010AFD4 /* CreateContactViewControllerTests.swift */,
+			);
+			path = CreateContact;
 			sourceTree = "<group>";
 		};
 		CFAFEDB024401ECB006557D1 = {
@@ -197,7 +243,9 @@
 		CFAFEDE224401EF3006557D1 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				CF8F8751244469210010AFD4 /* Utils */,
 				CFAFEE002441CC47006557D1 /* ListContacts */,
+				CF19C70224432C9B00AFC7A9 /* CreateContact */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -359,17 +407,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFAFEDC124401ECB006557D1 /* ViewController.swift in Sources */,
+				CF8F8753244469380010AFD4 /* ObservableTextField.swift in Sources */,
 				CFAFEDE824401F78006557D1 /* Observable.swift in Sources */,
 				CFAFEDBD24401ECB006557D1 /* AppDelegate.swift in Sources */,
+				CF19C70A2443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift in Sources */,
 				CFAFEDE624401F5E006557D1 /* HTTPClient.swift in Sources */,
+				CF19C70424432CB000AFC7A9 /* CreateContactModel.swift in Sources */,
 				CFAFEE0A2442C6C1006557D1 /* DependencyWorker.swift in Sources */,
 				CFAFEE08244211D1006557D1 /* ListContactsTableViewCell.swift in Sources */,
 				CFAFEE062441E1D5006557D1 /* ListContactsViewModel.swift in Sources */,
 				CFAFEDBF24401ECB006557D1 /* SceneDelegate.swift in Sources */,
+				CF19C70624432CCE00AFC7A9 /* CreateContactViewModel.swift in Sources */,
 				CFAFEE022441E182006557D1 /* ListContactsViewController.swift in Sources */,
+				CF19C70824432CDA00AFC7A9 /* CreateContactViewController.swift in Sources */,
 				CFAFEE042441E1C6006557D1 /* ListContactsModel.swift in Sources */,
 				CFAFEDF824418ADD006557D1 /* ContactGroup.swift in Sources */,
 				CFAFEDEA24404BEE006557D1 /* ContactsApi.swift in Sources */,
+				CF19C70C244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift in Sources */,
 				CFAFEDF624416E20006557D1 /* ContactsWorker.swift in Sources */,
 				CFAFEDEF24404C61006557D1 /* Contact.swift in Sources */,
 				CFAFEDF124406272006557D1 /* Constants.swift in Sources */,
@@ -381,10 +435,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFAFEDFB2441B85D006557D1 /* ContactsWorkerTests.swift in Sources */,
+				CF8F8758244562B00010AFD4 /* CreateContactViewModelTests.swift in Sources */,
 				CFAFEDF42440AEC9006557D1 /* Observable.swift in Sources */,
 				CF19C70124430AE400AFC7A9 /* ListContactsViewControllerTests.swift in Sources */,
 				CFAFEDFF2441B9D7006557D1 /* Seeds.swift in Sources */,
 				CF19C6FB2442F24000AFC7A9 /* ListContactsViewModelTests.swift in Sources */,
+				CF8F875A2445AF060010AFD4 /* CreateContactViewControllerTests.swift in Sources */,
 				CF19C6FD2443017400AFC7A9 /* Mocks.swift in Sources */,
 				CFAFEDED24404C1F006557D1 /* ContactsApiTests.swift in Sources */,
 			);

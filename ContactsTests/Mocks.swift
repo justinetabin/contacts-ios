@@ -37,7 +37,7 @@ class MockContactsStore: ContactsStoreProtocol {
     
     func createContact(contactToCreate: Contact, completion: @escaping (Contact?, Error?) -> Void) {
         if isSuccess {
-            completion(contacts[0], nil)
+            completion(contactToCreate, nil)
         } else {
             completion(nil, NSError(domain: "", code: 400))
         }

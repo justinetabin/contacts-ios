@@ -90,5 +90,22 @@ class ContactsWorkerTests: XCTestCase {
         // then
         XCTAssertEqual(groupedContacts, expectedContactGroups)
     }
+    
+    func test_whenCreatedContact_thenShouldReturnContactCreated() {
+        // given
+        let expect = expectation(description: "Wait for createContact() to return")
+        let expectedContact = contactStore.contacts[0]
+        
+        // when
+        var createdContact: Contact?
+        sut.createContact(contactToCreate: expectedContact) { (contact) in
+            expect.fulfill()
+            createdContact = contact
+        }
+        
+        // then
+        waitForExpectations(timeout: 1.0, handler: nil)
+        XCTAssertEqual(createdContact, expectedContact)
+    }
 
 }

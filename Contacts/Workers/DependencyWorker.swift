@@ -15,6 +15,8 @@ protocol WorkerFactory {
 
 protocol ViewControllerFactory {
     func makeListContacts() -> ListContactsViewController
+    func makeCreateContact() -> CreateContactViewController
+    func makeAlertableError(message: String) -> UIAlertController
 }
 
 struct DependencyWorker {
@@ -38,6 +40,19 @@ extension DependencyWorker: ViewControllerFactory {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ListContactsViewController") as! ListContactsViewController
         vc.viewModel = ListContactsViewModel(factory: self)
         vc.factory = self
+        return vc
+    }
+    
+    func makeCreateContact() -> CreateContactViewController {
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "CreateContactViewController") as! CreateContactViewController
+        vc.viewModel = CreateContactViewModel(factory: self)
+        vc.factory = self
+        return vc
+    }
+    
+    func makeAlertableError(message: String) -> UIAlertController {
+        let vc = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        vc.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         return vc
     }
 }

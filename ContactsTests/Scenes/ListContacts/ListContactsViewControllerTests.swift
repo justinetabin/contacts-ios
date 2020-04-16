@@ -11,12 +11,18 @@ import XCTest
 
 class ListContactsViewControllerTests: XCTestCase {
     
+    var nav: UINavigationController!
     var sut: ListContactsViewController!
+    var window: UIWindow!
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         let dependencyWorker = DependencyWorker(contactsApi: MockContactsStore())
         sut = dependencyWorker.makeListContacts()
+        nav = UINavigationController(rootViewController: sut)
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window.rootViewController = sut
+        window.makeKeyAndVisible()
     }
 
     override func tearDown() {
@@ -25,16 +31,11 @@ class ListContactsViewControllerTests: XCTestCase {
     
     func test_whenViewDidLoad_thenShouldDisplayTableView() {
         // given
-        let expect = expectation(description: "Wait for reloadData() to receive value")
         
         // when
-        sut.viewModel.input.reloadData.observe(on: self) { (_) in
-            expect.fulfill()
-        }
         sut.view.layoutIfNeeded()
         
         // then
-        waitForExpectations(timeout: 1.0, handler: nil)
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0), 2)
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 1), 1)
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 2), 1)
@@ -45,6 +46,25 @@ class ListContactsViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.tableView(sut.tableView, titleForHeaderInSection: 2), "J")
         XCTAssertEqual(sut.tableView(sut.tableView, titleForHeaderInSection: 3), "S")
         XCTAssertEqual(sut.sectionIndexTitles(for: sut.tableView), ["C", "D", "J", "S"])
+    }
+    
+    func test_whenTappedAddContactButton_thenShouldPushAddContacts() {
+        // given
+        let expect = expectation(description: "Wait for UI thread to finish")
+        
+        // when
+        sut.view.layoutIfNeeded()
+        sut.didTapAdd()
+        
+        var vcStacks: Int?
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            expect.fulfill()
+            vcStacks = self.sut.navigationController?.viewControllers.count
+        }
+        
+        // then
+        waitForExpectations(timeout: 1.0, handler: nil)
+        XCTAssertEqual(vcStacks, 2)
     }
 
 }
