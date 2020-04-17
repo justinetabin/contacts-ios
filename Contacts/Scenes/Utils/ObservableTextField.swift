@@ -14,6 +14,11 @@ class ObservableTextField: UITextField {
     var observable = Observable("") {
         didSet {
             editingChange(textField: self)
+            observable.observe(on: self) { (text) in
+                DispatchQueue.main.async {
+                    self.text = text
+                }
+            }
         }
     }
     

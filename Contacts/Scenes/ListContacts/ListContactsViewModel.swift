@@ -36,6 +36,7 @@ class ListContactsViewModel: ListContactsViewModelType {
     }
     
     struct DisplayableContact {
+        var id: String
         var fullname: String
     }
     
@@ -61,7 +62,7 @@ class ListContactsViewModel: ListContactsViewModelType {
             self.output.numberOfSections = contactGroups.count
             self.output.numberOfRowsInSection = contactGroups.map { $0.contacts.count }
             self.output.displayedContacts = contactGroups.map {
-                $0.contacts.map { DisplayableContact(fullname: "\($0.firstName) \($0.lastName)") }
+                $0.contacts.map { DisplayableContact(id: $0._id, fullname: "\($0.firstName) \($0.lastName)") }
             }
             self.output.titleForHeaderInSection = contactGroups.map { $0.title }
             self.output.sectionIndexTitles = contactGroups.map { $0.title.first!.uppercased() }

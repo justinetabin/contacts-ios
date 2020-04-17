@@ -128,7 +128,7 @@
                                         </label>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yVx-yF-kBz" customClass="ObservableTextField" customModule="Contacts" customModuleProvider="target">
                                             <rect key="frame" x="134" y="23" width="260" height="46"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                     </subviews>
@@ -156,7 +156,88 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sfr-CY-wSa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="1719.6428571428571"/>
+            <point key="canvasLocation" x="1416" y="1735"/>
+        </scene>
+        <!--Show Contact View Controller-->
+        <scene sceneID="UaC-Ml-xa3">
+            <objects>
+                <tableViewController storyboardIdentifier="ShowContactViewController" id="hzB-uS-6tw" customClass="ShowContactViewController" customModule="Contacts" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="B3C-mJ-RxW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShowContactAvatarTableViewCell" rowHeight="212" id="Naj-IB-sJD" customClass="ShowContactAvatarTableViewCell" customModule="Contacts" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="212"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Naj-IB-sJD" id="xBs-yd-Cd6">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="212"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zDc-QK-jjg">
+                                            <rect key="frame" x="157" y="56" width="100" height="100"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="PfR-vE-Ztw"/>
+                                                <constraint firstAttribute="height" constant="100" id="j4f-iM-iX9"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="zDc-QK-jjg" firstAttribute="centerX" secondItem="xBs-yd-Cd6" secondAttribute="centerX" id="a0D-Ze-axW"/>
+                                        <constraint firstItem="zDc-QK-jjg" firstAttribute="centerY" secondItem="xBs-yd-Cd6" secondAttribute="centerY" id="gXP-QV-f9r"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="avatarImageView" destination="zDc-QK-jjg" id="kn3-AC-nn9"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShowContactDetailTableViewCell" rowHeight="92" id="x7n-UC-yUn" customClass="ShowContactDetailTableViewCell" customModule="Contacts" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="240" width="414" height="92"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x7n-UC-yUn" id="Up2-PL-EyV">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="92"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AX3-4Z-CeS">
+                                            <rect key="frame" x="20" y="36" width="100" height="20.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="ZDB-Rv-mSD"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Xb-Jn-V0O" customClass="ObservableTextField" customModule="Contacts" customModuleProvider="target">
+                                            <rect key="frame" x="134" y="23" width="260" height="46"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="7Xb-Jn-V0O" firstAttribute="top" secondItem="Up2-PL-EyV" secondAttribute="topMargin" constant="12" id="Cc8-Va-4KD"/>
+                                        <constraint firstItem="7Xb-Jn-V0O" firstAttribute="leading" secondItem="AX3-4Z-CeS" secondAttribute="trailing" constant="14" id="GLk-kz-F9Y"/>
+                                        <constraint firstItem="7Xb-Jn-V0O" firstAttribute="centerY" secondItem="Up2-PL-EyV" secondAttribute="centerY" id="eeK-uw-SeR"/>
+                                        <constraint firstItem="AX3-4Z-CeS" firstAttribute="leading" secondItem="Up2-PL-EyV" secondAttribute="leadingMargin" id="j4q-rE-WKS"/>
+                                        <constraint firstItem="7Xb-Jn-V0O" firstAttribute="trailing" secondItem="Up2-PL-EyV" secondAttribute="trailingMargin" id="jTW-uL-jAg"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="7Xb-Jn-V0O" secondAttribute="bottom" constant="12" id="rBK-QX-RgI"/>
+                                        <constraint firstItem="AX3-4Z-CeS" firstAttribute="centerY" secondItem="Up2-PL-EyV" secondAttribute="centerY" id="tnu-zB-Jmx"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="formTextField" destination="7Xb-Jn-V0O" id="sdQ-SO-gpa"/>
+                                    <outlet property="placeholderLabel" destination="AX3-4Z-CeS" id="7mu-8c-lQ7"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hzB-uS-6tw" id="Te6-3D-QgR"/>
+                            <outlet property="delegate" destination="hzB-uS-6tw" id="Tsh-dI-m4Q"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="glc-kS-hB3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1414.4927536231885" y="926.78571428571422"/>
         </scene>
     </scenes>
 </document>

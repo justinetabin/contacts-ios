@@ -55,6 +55,12 @@ class ContactsWorker {
             completion(contact)
         }
     }
+    
+    func getContact(contactId: String, completion: @escaping (Contact?) -> Void) {
+        contactsStore.getContact(contactId: contactId) { (contact, error) in
+            completion(contact)
+        }
+    }
 }
 
 protocol ContactsStoreProtocol {

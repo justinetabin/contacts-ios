@@ -10,11 +10,11 @@
 		CF19C6FB2442F24000AFC7A9 /* ListContactsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C6FA2442F24000AFC7A9 /* ListContactsViewModelTests.swift */; };
 		CF19C6FD2443017400AFC7A9 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C6FC2443017400AFC7A9 /* Mocks.swift */; };
 		CF19C70124430AE400AFC7A9 /* ListContactsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C70024430AE400AFC7A9 /* ListContactsViewControllerTests.swift */; };
-		CF19C70424432CB000AFC7A9 /* CreateContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C70324432CB000AFC7A9 /* CreateContactModel.swift */; };
 		CF19C70624432CCE00AFC7A9 /* CreateContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C70524432CCE00AFC7A9 /* CreateContactViewModel.swift */; };
 		CF19C70824432CDA00AFC7A9 /* CreateContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C70724432CDA00AFC7A9 /* CreateContactViewController.swift */; };
 		CF19C70A2443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C7092443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift */; };
 		CF19C70C244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C70B244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift */; };
+		CF8560202449AB6100C52E36 /* ShowContactViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF85601F2449AB6100C52E36 /* ShowContactViewModelTests.swift */; };
 		CF8F8753244469380010AFD4 /* ObservableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8F8752244469380010AFD4 /* ObservableTextField.swift */; };
 		CF8F8758244562B00010AFD4 /* CreateContactViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8F8757244562B00010AFD4 /* CreateContactViewModelTests.swift */; };
 		CF8F875A2445AF060010AFD4 /* CreateContactViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8F87592445AF060010AFD4 /* CreateContactViewControllerTests.swift */; };
@@ -36,10 +36,14 @@
 		CFAFEDFB2441B85D006557D1 /* ContactsWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAFEDFA2441B85D006557D1 /* ContactsWorkerTests.swift */; };
 		CFAFEDFF2441B9D7006557D1 /* Seeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAFEDFE2441B9D7006557D1 /* Seeds.swift */; };
 		CFAFEE022441E182006557D1 /* ListContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAFEE012441E182006557D1 /* ListContactsViewController.swift */; };
-		CFAFEE042441E1C6006557D1 /* ListContactsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAFEE032441E1C6006557D1 /* ListContactsModel.swift */; };
 		CFAFEE062441E1D5006557D1 /* ListContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAFEE052441E1D5006557D1 /* ListContactsViewModel.swift */; };
 		CFAFEE08244211D1006557D1 /* ListContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAFEE07244211D1006557D1 /* ListContactsTableViewCell.swift */; };
 		CFAFEE0A2442C6C1006557D1 /* DependencyWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAFEE092442C6C1006557D1 /* DependencyWorker.swift */; };
+		CFB3530124485EE70094E070 /* ShowContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3530024485EE70094E070 /* ShowContactViewController.swift */; };
+		CFB3530324485EFE0094E070 /* ShowContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3530224485EFE0094E070 /* ShowContactViewModel.swift */; };
+		CFB3530524485F1C0094E070 /* ShowContactAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3530424485F1C0094E070 /* ShowContactAvatarTableViewCell.swift */; };
+		CFB3530724485F2A0094E070 /* ShowContactDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3530624485F2A0094E070 /* ShowContactDetailTableViewCell.swift */; };
+		CFED88982449364600705FDF /* ShowContactViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFED88972449364600705FDF /* ShowContactViewControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,11 +60,11 @@
 		CF19C6FA2442F24000AFC7A9 /* ListContactsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContactsViewModelTests.swift; sourceTree = "<group>"; };
 		CF19C6FC2443017400AFC7A9 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		CF19C70024430AE400AFC7A9 /* ListContactsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContactsViewControllerTests.swift; sourceTree = "<group>"; };
-		CF19C70324432CB000AFC7A9 /* CreateContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactModel.swift; sourceTree = "<group>"; };
 		CF19C70524432CCE00AFC7A9 /* CreateContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactViewModel.swift; sourceTree = "<group>"; };
 		CF19C70724432CDA00AFC7A9 /* CreateContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactViewController.swift; sourceTree = "<group>"; };
 		CF19C7092443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactInputDetailTableViewCell.swift; sourceTree = "<group>"; };
 		CF19C70B244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactInputAvatarTableViewCell.swift; sourceTree = "<group>"; };
+		CF85601F2449AB6100C52E36 /* ShowContactViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactViewModelTests.swift; sourceTree = "<group>"; };
 		CF8F8752244469380010AFD4 /* ObservableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableTextField.swift; sourceTree = "<group>"; };
 		CF8F8757244562B00010AFD4 /* CreateContactViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactViewModelTests.swift; sourceTree = "<group>"; };
 		CF8F87592445AF060010AFD4 /* CreateContactViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactViewControllerTests.swift; sourceTree = "<group>"; };
@@ -86,10 +90,14 @@
 		CFAFEDFA2441B85D006557D1 /* ContactsWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsWorkerTests.swift; sourceTree = "<group>"; };
 		CFAFEDFE2441B9D7006557D1 /* Seeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seeds.swift; sourceTree = "<group>"; };
 		CFAFEE012441E182006557D1 /* ListContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContactsViewController.swift; sourceTree = "<group>"; };
-		CFAFEE032441E1C6006557D1 /* ListContactsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContactsModel.swift; sourceTree = "<group>"; };
 		CFAFEE052441E1D5006557D1 /* ListContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContactsViewModel.swift; sourceTree = "<group>"; };
 		CFAFEE07244211D1006557D1 /* ListContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContactsTableViewCell.swift; sourceTree = "<group>"; };
 		CFAFEE092442C6C1006557D1 /* DependencyWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyWorker.swift; sourceTree = "<group>"; };
+		CFB3530024485EE70094E070 /* ShowContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactViewController.swift; sourceTree = "<group>"; };
+		CFB3530224485EFE0094E070 /* ShowContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactViewModel.swift; sourceTree = "<group>"; };
+		CFB3530424485F1C0094E070 /* ShowContactAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactAvatarTableViewCell.swift; sourceTree = "<group>"; };
+		CFB3530624485F2A0094E070 /* ShowContactDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactDetailTableViewCell.swift; sourceTree = "<group>"; };
+		CFED88972449364600705FDF /* ShowContactViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +123,7 @@
 			children = (
 				CF19C6F92442F1FB00AFC7A9 /* ListContacts */,
 				CF8F8754244553470010AFD4 /* CreateContact */,
+				CFED88962449362300705FDF /* ShowContact */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -131,7 +140,6 @@
 		CF19C70224432C9B00AFC7A9 /* CreateContact */ = {
 			isa = PBXGroup;
 			children = (
-				CF19C70324432CB000AFC7A9 /* CreateContactModel.swift */,
 				CF19C70524432CCE00AFC7A9 /* CreateContactViewModel.swift */,
 				CF19C70724432CDA00AFC7A9 /* CreateContactViewController.swift */,
 				CF19C70B244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift */,
@@ -246,6 +254,7 @@
 				CF8F8751244469210010AFD4 /* Utils */,
 				CFAFEE002441CC47006557D1 /* ListContacts */,
 				CF19C70224432C9B00AFC7A9 /* CreateContact */,
+				CFB352FF24485EBC0094E070 /* ShowContact */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -297,12 +306,31 @@
 		CFAFEE002441CC47006557D1 /* ListContacts */ = {
 			isa = PBXGroup;
 			children = (
-				CFAFEE032441E1C6006557D1 /* ListContactsModel.swift */,
 				CFAFEE052441E1D5006557D1 /* ListContactsViewModel.swift */,
 				CFAFEE012441E182006557D1 /* ListContactsViewController.swift */,
 				CFAFEE07244211D1006557D1 /* ListContactsTableViewCell.swift */,
 			);
 			path = ListContacts;
+			sourceTree = "<group>";
+		};
+		CFB352FF24485EBC0094E070 /* ShowContact */ = {
+			isa = PBXGroup;
+			children = (
+				CFB3530224485EFE0094E070 /* ShowContactViewModel.swift */,
+				CFB3530024485EE70094E070 /* ShowContactViewController.swift */,
+				CFB3530424485F1C0094E070 /* ShowContactAvatarTableViewCell.swift */,
+				CFB3530624485F2A0094E070 /* ShowContactDetailTableViewCell.swift */,
+			);
+			path = ShowContact;
+			sourceTree = "<group>";
+		};
+		CFED88962449362300705FDF /* ShowContact */ = {
+			isa = PBXGroup;
+			children = (
+				CF85601F2449AB6100C52E36 /* ShowContactViewModelTests.swift */,
+				CFED88972449364600705FDF /* ShowContactViewControllerTests.swift */,
+			);
+			path = ShowContact;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -407,25 +435,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFAFEDC124401ECB006557D1 /* ViewController.swift in Sources */,
+				CFB3530724485F2A0094E070 /* ShowContactDetailTableViewCell.swift in Sources */,
 				CF8F8753244469380010AFD4 /* ObservableTextField.swift in Sources */,
 				CFAFEDE824401F78006557D1 /* Observable.swift in Sources */,
 				CFAFEDBD24401ECB006557D1 /* AppDelegate.swift in Sources */,
 				CF19C70A2443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift in Sources */,
 				CFAFEDE624401F5E006557D1 /* HTTPClient.swift in Sources */,
-				CF19C70424432CB000AFC7A9 /* CreateContactModel.swift in Sources */,
 				CFAFEE0A2442C6C1006557D1 /* DependencyWorker.swift in Sources */,
 				CFAFEE08244211D1006557D1 /* ListContactsTableViewCell.swift in Sources */,
+				CFB3530324485EFE0094E070 /* ShowContactViewModel.swift in Sources */,
 				CFAFEE062441E1D5006557D1 /* ListContactsViewModel.swift in Sources */,
 				CFAFEDBF24401ECB006557D1 /* SceneDelegate.swift in Sources */,
 				CF19C70624432CCE00AFC7A9 /* CreateContactViewModel.swift in Sources */,
 				CFAFEE022441E182006557D1 /* ListContactsViewController.swift in Sources */,
 				CF19C70824432CDA00AFC7A9 /* CreateContactViewController.swift in Sources */,
-				CFAFEE042441E1C6006557D1 /* ListContactsModel.swift in Sources */,
 				CFAFEDF824418ADD006557D1 /* ContactGroup.swift in Sources */,
 				CFAFEDEA24404BEE006557D1 /* ContactsApi.swift in Sources */,
 				CF19C70C244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift in Sources */,
 				CFAFEDF624416E20006557D1 /* ContactsWorker.swift in Sources */,
 				CFAFEDEF24404C61006557D1 /* Contact.swift in Sources */,
+				CFB3530124485EE70094E070 /* ShowContactViewController.swift in Sources */,
+				CFB3530524485F1C0094E070 /* ShowContactAvatarTableViewCell.swift in Sources */,
 				CFAFEDF124406272006557D1 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -434,7 +464,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFED88982449364600705FDF /* ShowContactViewControllerTests.swift in Sources */,
 				CFAFEDFB2441B85D006557D1 /* ContactsWorkerTests.swift in Sources */,
+				CF8560202449AB6100C52E36 /* ShowContactViewModelTests.swift in Sources */,
 				CF8F8758244562B00010AFD4 /* CreateContactViewModelTests.swift in Sources */,
 				CFAFEDF42440AEC9006557D1 /* Observable.swift in Sources */,
 				CF19C70124430AE400AFC7A9 /* ListContactsViewControllerTests.swift in Sources */,

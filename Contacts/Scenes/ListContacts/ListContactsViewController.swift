@@ -62,4 +62,10 @@ extension ListContactsViewController {
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return viewModel.output.sectionIndexTitles
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let displayedContact = viewModel.output.displayedContacts[indexPath.section][indexPath.row]
+        let showContact = factory.makeShowContact(contactId: displayedContact.id)
+        show(showContact, sender: nil)
+    }
 }
