@@ -66,5 +66,22 @@ class ListContactsViewControllerTests: XCTestCase {
         waitForExpectations(timeout: 1.0, handler: nil)
         XCTAssertEqual(vcStacks, 2)
     }
+    
+    func test_whenDidSelectRow_thenShouldPushShowContact() {
+        // given
+        let expect = expectation(description: "")
+        
+        // when
+        sut.tableView(sut.tableView, didSelectRowAt: IndexPath(row: 0, section: 0))
+        var topViewController: UIViewController?
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            expect.fulfill()
+            topViewController = self.nav.topViewController
+        }
+        
+        // then
+        waitForExpectations(timeout: 1.0, handler: nil)
+        XCTAssert(topViewController is ShowContactViewController)
+    }
 
 }
