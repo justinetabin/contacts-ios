@@ -43,9 +43,9 @@ class MockContactsStore: ContactsStoreProtocol {
         }
     }
     
-    func updateContact(contactToUpdate: Contact, completion: @escaping (Bool?, Error?) -> Void) {
+    func updateContact(contactToUpdate: Contact, completion: @escaping (Contact?, Error?) -> Void) {
         if isSuccess {
-            completion(true, nil)
+            completion(contactToUpdate, nil)
         } else {
             completion(nil, NSError(domain: "", code: 400))
         }

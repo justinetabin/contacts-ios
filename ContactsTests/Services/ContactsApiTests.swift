@@ -61,7 +61,7 @@ class ContactsApiTests: XCTestCase {
         var gotContact: Contact?
         var gotContactError: Error?
         
-        var contactUpdated: Bool?
+        var contactUpdated: Contact?
         var gotUpdateError: Error?
         
         var contactDeleted: Bool?
@@ -102,7 +102,6 @@ class ContactsApiTests: XCTestCase {
         XCTAssertNil(gotContactError)
         
         XCTAssertNotNil(contactUpdated)
-        XCTAssertTrue(contactUpdated ?? false)
         XCTAssertNil(gotUpdateError)
         
         XCTAssertNotNil(contactDeleted)
