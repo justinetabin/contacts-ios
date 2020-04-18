@@ -25,6 +25,7 @@ class ListContactsViewModel: ListContactsViewModelType {
         var fetchContacts = Observable(())
         var reloadData = Observable(())
         var didCreateContact: Observable<Contact?> = Observable(nil)
+        var didUpdateContact: Observable<Contact?> = Observable(nil)
     }
     
     struct Output {
@@ -66,6 +67,15 @@ class ListContactsViewModel: ListContactsViewModelType {
             }
             self.output.titleForHeaderInSection = contactGroups.map { $0.title }
             self.output.sectionIndexTitles = contactGroups.map { $0.title.first!.uppercased() }
+        }
+        
+        input.didUpdateContact.observe(on: self) { (contact) in
+            if let contact = contact {
+                if let contactIndex = self.contacts.firstIndex(of: contact) {
+                    self.contacts[contactIndex] = contact
+                    self.input.reloadData.value = ()
+                }
+            }
         }
     }
 }

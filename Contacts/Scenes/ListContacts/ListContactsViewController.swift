@@ -32,7 +32,6 @@ class ListContactsViewController: UITableViewController {
     
     @objc func didTapAdd() {
         let createContact = factory.makeCreateContact()
-        createContact.viewModel.input.didCreateContact = viewModel.input.didCreateContact
         show(createContact, sender: nil)
     }
     

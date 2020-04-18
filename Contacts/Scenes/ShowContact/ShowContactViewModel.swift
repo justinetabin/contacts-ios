@@ -11,18 +11,22 @@ import Foundation
 protocol ShowContactViewModelType {
     var input: ShowContactViewModel.Input { get set }
     var output: ShowContactViewModel.Output { get set }
+    var route: ShowContactViewModel.Route { get set }
 }
 
 class ShowContactViewModel: ShowContactViewModelType {
     
     var input: ShowContactViewModel.Input = Input()
     var output: ShowContactViewModel.Output = Output()
+    var route: ShowContactViewModel.Route = Route()
+    
     var worker: ContactsWorker
     var contact: Contact?
 
     struct Input {
         var fetchContact = Observable(())
         var reloadData = Observable(())
+        var didUpdateContact: Observable<Contact?> = Observable(nil)
     }
     
     struct Output {
@@ -34,6 +38,10 @@ class ShowContactViewModel: ShowContactViewModelType {
         func heightForRowInSection(section: Int, row: Int) -> Double { return displayableSections[section].displayableRows[row].rowHeight }
     }
     
+    struct Route {
+        var contactId = ""
+    }
+    
     struct DisplayableContact {
         var avatarUrl = Observable("")
         var fullname = Observable("")
@@ -42,6 +50,7 @@ class ShowContactViewModel: ShowContactViewModelType {
     }
     
     init(contactId: String, factory: WorkerFactory) {
+        route.contactId = contactId
         worker = factory.makeContactsWorker()
         
         input.fetchContact.observe(on: self) { (_) in
@@ -59,6 +68,11 @@ class ShowContactViewModel: ShowContactViewModelType {
             } else {
                 self.output.presentableError.value = "Contact not found"
             }
+        }
+        
+        input.didUpdateContact.observe(on: self) { (contact) in
+            self.contact = contact
+            self.input.reloadData.value = ()
         }
     }
     

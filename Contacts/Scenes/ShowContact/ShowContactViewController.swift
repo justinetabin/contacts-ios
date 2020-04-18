@@ -17,6 +17,8 @@ class ShowContactViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(didTapEdit))
+        
         viewModel.input.fetchContact.value = ()
         viewModel.output.presentableError.observe(on: self) { [weak self] (message) in
             guard let weakSelf = self else { return }
@@ -27,6 +29,10 @@ class ShowContactViewController: UITableViewController {
         }
     }
     
+    @objc func didTapEdit() {
+        let vc = factory.makeUpdateContact(contactId: viewModel.route.contactId)
+        show(vc, sender: nil)
+    }
 }
 
 extension ShowContactViewController {
