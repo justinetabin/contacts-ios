@@ -17,6 +17,7 @@ protocol ViewControllerFactory {
     func makeListContacts() -> ListContactsViewController
     func makeCreateContact() -> CreateContactViewController
     func makeShowContact(contactId: String) -> ShowContactViewController
+    func makeUpdateContact(contactId: String) -> UpdateContactViewController
     func makeAlertableError(message: String) -> UIAlertController
 }
 
@@ -54,6 +55,13 @@ extension DependencyWorker: ViewControllerFactory {
     func makeShowContact(contactId: String) -> ShowContactViewController {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ShowContactViewController") as! ShowContactViewController
         vc.viewModel = ShowContactViewModel(contactId: contactId, factory: self)
+        vc.factory = self
+        return vc
+    }
+    
+    func makeUpdateContact(contactId: String) -> UpdateContactViewController {
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "UpdateContactViewController") as! UpdateContactViewController
+        vc.viewModel = UpdateContactViewModel(contactId: contactId, factory: self)
         vc.factory = self
         return vc
     }

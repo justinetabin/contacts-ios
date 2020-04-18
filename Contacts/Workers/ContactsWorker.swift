@@ -61,12 +61,18 @@ class ContactsWorker {
             completion(contact)
         }
     }
+    
+    func updateContact(contactToUpdate: Contact, completion: @escaping (Contact?) -> Void) {
+        contactsStore.updateContact(contactToUpdate: contactToUpdate) { (contact, error) in
+            completion(contact)
+        }
+    }
 }
 
 protocol ContactsStoreProtocol {
     func fetchContacts(completion: @escaping ([Contact]?, Error?) -> Void)
     func getContact(contactId: String, completion: @escaping (Contact?, Error?) -> Void)
     func createContact(contactToCreate: Contact, completion: @escaping (Contact?, Error?) -> Void)
-    func updateContact(contactToUpdate: Contact, completion: @escaping (Bool?, Error?) -> Void)
+    func updateContact(contactToUpdate: Contact, completion: @escaping (Contact?, Error?) -> Void)
     func deleteContact(contactId: String, completion: @escaping (Bool?, Error?) -> Void)
 }

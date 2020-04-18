@@ -42,7 +42,7 @@ class ContactsApi: ContactsStoreProtocol {
         }
     }
     
-    func updateContact(contactToUpdate: Contact, completion: @escaping (Bool?, Error?) -> Void) {
+    func updateContact(contactToUpdate: Contact, completion: @escaping (Contact?, Error?) -> Void) {
         var request = HTTPClient.Request(path: "/contacts/\(contactToUpdate._id)", method: .PUT)
         request.params = [
             "firstName": contactToUpdate.firstName,
@@ -50,7 +50,7 @@ class ContactsApi: ContactsStoreProtocol {
             "email": contactToUpdate.email,
             "phoneNumber": contactToUpdate.phoneNumber
         ]
-        httpClient.dataTask(type: Bool.self, request: request) { (response) in
+        httpClient.dataTask(type: Contact.self, request: request) { (response) in
             completion(response.body, response.error)
         }
     }

@@ -158,6 +158,87 @@
             </objects>
             <point key="canvasLocation" x="1416" y="1735"/>
         </scene>
+        <!--Update Contact View Controller-->
+        <scene sceneID="rep-eH-Mkq">
+            <objects>
+                <tableViewController storyboardIdentifier="UpdateContactViewController" id="tHh-Xx-Etd" customClass="UpdateContactViewController" customModule="Contacts" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MyJ-0W-dkQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UpdateContactInputAvatarTableViewCell" rowHeight="212" id="h41-cf-Xdc" customClass="UpdateContactInputAvatarTableViewCell" customModule="Contacts" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="212"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h41-cf-Xdc" id="cP3-YP-H1D">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="212"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Odl-tH-s7f">
+                                            <rect key="frame" x="157" y="56" width="100" height="100"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="Kzm-pL-LVU"/>
+                                                <constraint firstAttribute="height" constant="100" id="ZEK-Fo-vRk"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Odl-tH-s7f" firstAttribute="centerX" secondItem="cP3-YP-H1D" secondAttribute="centerX" id="kQm-tF-lh5"/>
+                                        <constraint firstItem="Odl-tH-s7f" firstAttribute="centerY" secondItem="cP3-YP-H1D" secondAttribute="centerY" id="p6i-0l-q5h"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="avatarImageView" destination="Odl-tH-s7f" id="Ta4-hV-loP"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UpdateContactInputDetailTableViewCell" rowHeight="92" id="jO6-6M-KjI" customClass="UpdateContactInputDetailTableViewCell" customModule="Contacts" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="240" width="414" height="92"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jO6-6M-KjI" id="Hzi-eg-HXx">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="92"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mMn-F1-fDi">
+                                            <rect key="frame" x="20" y="36" width="100" height="20.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="Zdv-pQ-Eqk"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MfP-Fz-M0a" customClass="ObservableTextField" customModule="Contacts" customModuleProvider="target">
+                                            <rect key="frame" x="134" y="23" width="260" height="46"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="MfP-Fz-M0a" firstAttribute="top" secondItem="Hzi-eg-HXx" secondAttribute="topMargin" constant="12" id="HG7-qe-wsf"/>
+                                        <constraint firstItem="MfP-Fz-M0a" firstAttribute="leading" secondItem="mMn-F1-fDi" secondAttribute="trailing" constant="14" id="KFG-D4-gye"/>
+                                        <constraint firstItem="mMn-F1-fDi" firstAttribute="centerY" secondItem="Hzi-eg-HXx" secondAttribute="centerY" id="StK-kh-ISK"/>
+                                        <constraint firstItem="MfP-Fz-M0a" firstAttribute="trailing" secondItem="Hzi-eg-HXx" secondAttribute="trailingMargin" id="UFp-MH-9AZ"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="MfP-Fz-M0a" secondAttribute="bottom" constant="12" id="W3F-cj-ggC"/>
+                                        <constraint firstItem="MfP-Fz-M0a" firstAttribute="centerY" secondItem="Hzi-eg-HXx" secondAttribute="centerY" id="Ydb-GK-kTo"/>
+                                        <constraint firstItem="mMn-F1-fDi" firstAttribute="leading" secondItem="Hzi-eg-HXx" secondAttribute="leadingMargin" id="sVt-zo-ys6"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="formTextField" destination="MfP-Fz-M0a" id="d28-f1-wRf"/>
+                                    <outlet property="placeholderLabel" destination="mMn-F1-fDi" id="nbe-OU-Vtc"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="tHh-Xx-Etd" id="t7w-lL-uoc"/>
+                            <outlet property="delegate" destination="tHh-Xx-Etd" id="WuT-Ak-BkK"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="od4-ao-gf8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1416" y="2512"/>
+        </scene>
         <!--Show Contact View Controller-->
         <scene sceneID="UaC-Ml-xa3">
             <objects>
