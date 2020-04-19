@@ -21,7 +21,7 @@ protocol ViewControllerFactory {
     func makeAlertableError(message: String) -> UIAlertController
 }
 
-struct DependencyWorker {
+class DependencyWorker {
     private var contactsApi: ContactsStoreProtocol
     
     init(contactsApi: ContactsStoreProtocol) {
