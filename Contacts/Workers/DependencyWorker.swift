@@ -22,7 +22,7 @@ protocol ViewControllerFactory {
 }
 
 struct DependencyWorker {
-    var contactsApi: ContactsStoreProtocol
+    private var contactsApi: ContactsStoreProtocol
     
     init(contactsApi: ContactsStoreProtocol) {
         self.contactsApi = contactsApi

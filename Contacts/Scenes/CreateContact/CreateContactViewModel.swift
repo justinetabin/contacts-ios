@@ -47,7 +47,7 @@ class CreateContactViewModel: CreateContactViewModelType {
                                   phoneNumber: self.input.didEnterPhoneNumber.value,
                                   createdAt: "",
                                   updatedAt: "")
-            self.worker.contactsStore.createContact(contactToCreate: contact) { (contact, _) in
+            self.worker.createContact(contactToCreate: contact) { (contact) in
                 self.input.didCreateContact.value = contact
                 if contact == nil {
                     self.output.presentableError.value = "Contact not created"

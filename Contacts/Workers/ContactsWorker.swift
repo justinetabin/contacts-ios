@@ -9,7 +9,7 @@
 import Foundation
 
 class ContactsWorker {
-    let contactsStore: ContactsStoreProtocol
+    private let contactsStore: ContactsStoreProtocol
     
     init(contactsStore: ContactsStoreProtocol) {
         self.contactsStore = contactsStore
