@@ -11,13 +11,11 @@ import XCTest
 
 class ListContactsViewModelTests: XCTestCase {
     
-    var contactsStore: MockContactsStore!
     var sut: ListContactsViewModel!
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        contactsStore = MockContactsStore()
-        sut = ListContactsViewModel(factory: DependencyWorker(contactsApi: contactsStore))
+        sut = ListContactsViewModel(factory: DependencyWorker(contactsApi: MockContactsStore()))
     }
 
     override func tearDown() {
@@ -61,6 +59,7 @@ class ListContactsViewModelTests: XCTestCase {
     func test_whenCreatedAContact_thenShouldDisplayContact() {
         // given
         let expect = expectation(description: "Wait for reloadData.observe() to receive a value")
+        let contactsStore = sut.worker.contactsStore as! MockContactsStore
         let expectedContact = contactsStore.contacts[0]
         
         // when

@@ -11,13 +11,11 @@ import XCTest
 
 class ContactsWorkerTests: XCTestCase {
     
-    var contactStore: MockContactsStore!
     var sut: ContactsWorker!
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        contactStore = MockContactsStore()
-        sut = ContactsWorker(contactsStore: contactStore)
+        sut = ContactsWorker(contactsStore: MockContactsStore())
     }
 
     override func tearDown() {
@@ -27,6 +25,7 @@ class ContactsWorkerTests: XCTestCase {
     func test_whenFetchedContacts_thenShouldReturnContacts() {
         // given
         let expect = expectation(description: "Wait for fetchContacts() to finish")
+        let contactStore = sut.contactsStore as! MockContactsStore
         let expectedContacts = contactStore.contacts
         
         // when
@@ -45,6 +44,7 @@ class ContactsWorkerTests: XCTestCase {
         // given
         let expect = expectation(description: "Wait for fetchContacts() to finish")
         let expectedContacts = [Contact]()
+        let contactStore = sut.contactsStore as! MockContactsStore
         contactStore.isSuccess = false
         
         // when
@@ -94,6 +94,7 @@ class ContactsWorkerTests: XCTestCase {
     func test_whenCreatedContact_thenShouldReturnContactCreated() {
         // given
         let expect = expectation(description: "Wait for createContact() to return")
+        let contactStore = sut.contactsStore as! MockContactsStore
         let expectedContact = contactStore.contacts[0]
         
         // when

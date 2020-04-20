@@ -39,7 +39,8 @@ class CreateContactViewModel: CreateContactViewModelType {
     init(factory: WorkerFactory) {
         worker = factory.makeContactsWorker()
         
-        input.didTapSave.observe(on: self) { (_) in
+        input.didTapSave.observe(on: self) { [weak self] (_) in
+            guard let self = self else { return }
             let contact = Contact(_id: "",
                                   firstName: self.input.didEnterFirstName.value,
                                   lastName: self.input.didEnterLastName.value,

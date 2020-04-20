@@ -20,26 +20,26 @@ class UpdateContactViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didTapSave))
         
         viewModel.input.setSaveEnable.observe(on: self) { [weak self] (bool) in
-            guard let weakSelf = self else { return }
+            guard let self = self else { return }
             DispatchQueue.main.async {
-                weakSelf.navigationItem.rightBarButtonItem?.isEnabled = bool
+                self.navigationItem.rightBarButtonItem?.isEnabled = bool
             }
         }
         
         viewModel.input.didUpdateContact.observe(on: self) { [weak self] (contact) in
-            guard let weakSelf = self else { return }
+            guard let self = self else { return }
             if contact != nil {
                 DispatchQueue.main.async {
-                    weakSelf.navigationController?.popViewController(animated: true)
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
         }
         
         viewModel.output.presentableError.observe(on: self) { [weak self] (message) in
-            guard let weakSelf = self else { return }
+            guard let self = self else { return }
             DispatchQueue.main.async {
-                let vc = weakSelf.factory.makeAlertableError(message: message)
-                weakSelf.present(vc, animated: true)
+                let vc = self.factory.makeAlertableError(message: message)
+                self.present(vc, animated: true)
             }
         }
         

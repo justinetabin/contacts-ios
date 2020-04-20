@@ -21,23 +21,26 @@ protocol ViewControllerFactory {
     func makeAlertableError(message: String) -> UIAlertController
 }
 
-class DependencyWorker {
-    private var contactsApi: ContactsStoreProtocol
+class DependencyWorker: WorkerFactory, ViewControllerFactory {
+    
+    var contactsApi: ContactsStoreProtocol
+    var contactsWorker: ContactsWorker
     
     init(contactsApi: ContactsStoreProtocol) {
         self.contactsApi = contactsApi
+        self.contactsWorker = ContactsWorker(contactsStore: contactsApi)
     }
-}
-
-extension DependencyWorker: WorkerFactory {
     
+    /*
+     Worker Factory Protocol
+     */
     func makeContactsWorker() -> ContactsWorker {
-        return ContactsWorker(contactsStore: contactsApi)
+        return contactsWorker
     }
-}
-
-extension DependencyWorker: ViewControllerFactory {
     
+    /*
+     ViewController Factory protocols
+     */
     func makeListContacts() -> ListContactsViewController {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ListContactsViewController") as! ListContactsViewController
         vc.viewModel = ListContactsViewModel(factory: self)

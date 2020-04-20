@@ -21,10 +21,10 @@ class ShowContactViewController: UITableViewController {
         
         viewModel.input.fetchContact.value = ()
         viewModel.output.presentableError.observe(on: self) { [weak self] (message) in
-            guard let weakSelf = self else { return }
+            guard let self = self else { return }
             DispatchQueue.main.async {
-                let vc = weakSelf.factory.makeAlertableError(message: message)
-                weakSelf.present(vc, animated: true, completion: nil)
+                let vc = self.factory.makeAlertableError(message: message)
+                self.present(vc, animated: true, completion: nil)
             }
         }
     }

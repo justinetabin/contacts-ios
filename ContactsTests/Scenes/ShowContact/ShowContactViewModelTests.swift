@@ -11,14 +11,11 @@ import XCTest
 
 class ShowContactViewModelTests: XCTestCase {
     
-    var contactStore: MockContactsStore!
-    var sut: ShowContactViewModelType!
+    var sut: ShowContactViewModel!
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        contactStore = MockContactsStore()
-        let dependencyWorker = DependencyWorker(contactsApi: contactStore)
-        sut = ShowContactViewModel(contactId: "", factory: dependencyWorker)
+        sut = ShowContactViewModel(contactId: "", factory: DependencyWorker(contactsApi: MockContactsStore()))
     }
 
     override func tearDown() {
@@ -45,6 +42,8 @@ class ShowContactViewModelTests: XCTestCase {
     func test_whenFailedFetchedContact_thenShouldReloadData() {
         // given
         let expect = expectation(description: "Wait for presentableError.observe() to receive a value")
+        let contactsStore = sut.worker.contactsStore as! MockContactsStore
+        contactsStore.isSuccess = false
         
         // when
         var gotMessage: String?
@@ -52,7 +51,6 @@ class ShowContactViewModelTests: XCTestCase {
             expect.fulfill()
             gotMessage = message
         }
-        contactStore.isSuccess = false
         sut.input.fetchContact.value = ()
         
         // then

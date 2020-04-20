@@ -53,14 +53,15 @@ class ShowContactViewModel: ShowContactViewModelType {
         route.contactId = contactId
         worker = factory.makeContactsWorker()
         
-        input.fetchContact.observe(on: self) { (_) in
+        input.fetchContact.observe(on: self) { [weak self] (_) in
+            guard let self = self else { return }
             self.worker.getContact(contactId: contactId) { (contact) in
                 self.contact = contact
                 self.input.reloadData.value = ()
             }
         }
         
-        input.reloadData.observe(on: self) { (_) in
+        input.reloadData.observe(on: self) { [unowned self] (_) in
             if let contact = self.contact {
                 self.output.displayableContact.fullname.value = "\(contact.firstName) \(contact.lastName)"
                 self.output.displayableContact.email.value = contact.email
@@ -70,10 +71,14 @@ class ShowContactViewModel: ShowContactViewModelType {
             }
         }
         
-        input.didUpdateContact.observe(on: self) { (contact) in
+        input.didUpdateContact.observe(on: self) { [unowned self] (contact) in
             self.contact = contact
             self.input.reloadData.value = ()
         }
+    }
+    
+    deinit {
+        input.didUpdateContact.remove(observer: self)
     }
     
 }

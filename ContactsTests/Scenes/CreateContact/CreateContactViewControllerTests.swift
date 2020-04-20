@@ -93,7 +93,7 @@ class CreateContactsViewControllerTests: XCTestCase {
         var saveIsEnabledOnCreated: Bool? = false
         
         saveIsEnabledBeforeSave = sut.navigationItem.rightBarButtonItem?.isEnabled
-        sut.viewModel.input.didCreateContact.observe(on: self) { (_) in
+        sut.viewModel.input.didCreateContact.observe(on: self) { [unowned self] (_) in
             expect.fulfill()
             saveIsEnabledOnCreated = self.sut.navigationItem.rightBarButtonItem?.isEnabled
         }

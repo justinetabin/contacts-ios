@@ -30,7 +30,7 @@ final class Observable<Value> {
     }
     
     func remove(observer: AnyObject) {
-        observers = observers.filter { $0.observer !== observer }
+        observers = observers.filter { $0.observer !== observer && $0.observer != nil }
     }
     
     private func notifyObservers() {

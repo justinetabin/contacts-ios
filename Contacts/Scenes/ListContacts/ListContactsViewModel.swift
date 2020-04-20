@@ -44,21 +44,22 @@ class ListContactsViewModel: ListContactsViewModelType {
     init(factory: WorkerFactory) {
         worker = factory.makeContactsWorker()
         
-        input.didCreateContact.observe(on: self) { (contact) in
+        input.didCreateContact.observe(on: self) { [unowned self] (contact) in
             if let contact = contact {
                 self.contacts.append(contact)
                 self.input.reloadData.value = ()
             }
         }
         
-        input.fetchContacts.observe(on: self) { (_) in
+        input.fetchContacts.observe(on: self) { [weak self] (_) in
+            guard let self = self else { return }
             self.worker.fetchContacts { (contacts) in
                 self.contacts = contacts
                 self.input.reloadData.value = ()
             }
         }
         
-        input.reloadData.observe(on: self) { (_) in
+        input.reloadData.observe(on: self) { [unowned self] (_) in
             let contactGroups = self.worker.groupContacts(contacts: self.contacts)
             self.output.numberOfSections = contactGroups.count
             self.output.numberOfRowsInSection = contactGroups.map { $0.contacts.count }
@@ -69,13 +70,19 @@ class ListContactsViewModel: ListContactsViewModelType {
             self.output.sectionIndexTitles = contactGroups.map { $0.title.first!.uppercased() }
         }
         
-        input.didUpdateContact.observe(on: self) { (contact) in
+        input.didUpdateContact.observe(on: self) { [unowned self] (contact) in
             if let contact = contact {
-                if let contactIndex = self.contacts.firstIndex(of: contact) {
+                if let contactIndex = self.contacts.firstIndex(where: { (_contact) -> Bool in
+                    return _contact._id == contact._id  
+                }) {
                     self.contacts[contactIndex] = contact
                     self.input.reloadData.value = ()
                 }
             }
         }
+    }
+    
+    deinit {
+        input.didUpdateContact.remove(observer: self)
     }
 }

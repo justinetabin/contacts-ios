@@ -11,13 +11,11 @@ import XCTest
 
 class CreateContactViewModelTests: XCTestCase {
     
-    var contactStore: MockContactsStore!
-    var sut: CreateContactViewModelType!
+    var sut: CreateContactViewModel!
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        contactStore = MockContactsStore()
-        sut = CreateContactViewModel(factory: DependencyWorker(contactsApi: contactStore))
+        sut = CreateContactViewModel(factory: DependencyWorker(contactsApi: MockContactsStore()))
     }
 
     override func tearDown() {
@@ -56,6 +54,7 @@ class CreateContactViewModelTests: XCTestCase {
     func test_whenFailedToSaveContact_thenShouldReturn() {
         // given
         let expect = expectation(description: "Wait for presentableError.observe() to receive a value")
+        let contactStore = sut.worker.contactsStore as! MockContactsStore
         contactStore.isSuccess = false
         let expectedErrorMessage = "Contact not created"
         

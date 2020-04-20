@@ -21,25 +21,25 @@ class CreateContactViewController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didTapSave))
         
-        viewModel.input.didTapSave.observe(on: self) { (_) in
+        viewModel.input.didTapSave.observe(on: self) { [unowned self] (_) in
             self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
         
         viewModel.input.didCreateContact.observe(on: self) { [weak self] (contact) in
-            guard let weakSelf = self else { return }
+            guard let self = self else { return }
             DispatchQueue.main.async {
-                weakSelf.navigationItem.rightBarButtonItem?.isEnabled = true
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
                 if contact != nil {
-                    weakSelf.navigationController?.popViewController(animated: true)
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
         }
         
         viewModel.output.presentableError.observe(on: self) { [weak self] (message) in
-            guard let weakSelf = self else { return }
+            guard let self = self else { return }
             DispatchQueue.main.async {
-                let alertVC = weakSelf.factory.makeAlertableError(message: message)
-                weakSelf.present(alertVC, animated: true, completion: nil)
+                let alertVC = self.factory.makeAlertableError(message: message)
+                self.present(alertVC, animated: true, completion: nil)
             }
         }
     }

@@ -43,7 +43,8 @@ class UpdateContactViewModel: UpdateContactViewModelType {
     init(contactId: String, factory: WorkerFactory) {
         worker = factory.makeContactsWorker()
         
-        input.fetchContact.observe(on: self) { (_) in
+        input.fetchContact.observe(on: self) { [weak self] (_) in
+            guard let self = self else { return }
             self.input.setSaveEnable.value = false
             self.worker.getContact(contactId: contactId) { (contact) in
                 if let contact = contact {
@@ -58,7 +59,8 @@ class UpdateContactViewModel: UpdateContactViewModelType {
             }
         }
         
-        input.didTapSave.observe(on: self) { (_) in
+        input.didTapSave.observe(on: self) { [weak self] (_) in
+            guard let self = self else { return }
             self.input.setSaveEnable.value = false
             let contact = Contact(_id: contactId,
                                   firstName: self.input.didEnterFirstName.value,
