@@ -43,5 +43,24 @@ class ObservableTests: XCTestCase {
         waitForExpectations(timeout: 1.0, handler: nil)
         XCTAssertEqual(values, expectedValues)
     }
+    
+    func test_whenObserverOnDeallocated_thenShouldNotReceiveAnyValue() {
+        // given
+        let expect = expectation(description: "Wait for observe() to receive a value")
+        expect.isInverted = true
+        var object: NSObject? = NSObject()
+        
+        // when
+        var gotMessage: String?
+        sut.observe(on: object!) { (message) in
+            gotMessage = message
+        }
+        object = nil
+        sut.value = "Hello"
+        
+        // then
+        waitForExpectations(timeout: 1.0, handler: nil)
+        XCTAssertNil(gotMessage)
+    }
 
 }

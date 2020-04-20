@@ -81,8 +81,4 @@ class ListContactsViewModel: ListContactsViewModelType {
             }
         }
     }
-    
-    deinit {
-        input.didUpdateContact.remove(observer: self)
-    }
 }

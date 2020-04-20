@@ -35,7 +35,9 @@ final class Observable<Value> {
     
     private func notifyObservers() {
         for observer in observers {
-            observer.block(value)
+            if let _ = observer.observer {
+                observer.block(value)
+            }
         }
     }
 }

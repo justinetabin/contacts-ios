@@ -75,12 +75,7 @@ class ShowContactViewModel: ShowContactViewModelType {
             self.contact = contact
             self.input.reloadData.value = ()
         }
-    }
-    
-    deinit {
-        input.didUpdateContact.remove(observer: self)
-    }
-    
+    }    
 }
 
 extension ShowContactViewModel {
