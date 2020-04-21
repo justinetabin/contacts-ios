@@ -22,7 +22,6 @@ class ListContactsViewControllerTests: XCTestCase {
         nav = UINavigationController(rootViewController: sut)
         window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = sut
-        window.makeKeyAndVisible()
     }
 
     override func tearDown() {
@@ -31,11 +30,16 @@ class ListContactsViewControllerTests: XCTestCase {
     
     func test_whenViewDidLoad_thenShouldDisplayTableView() {
         // given
+        let expect = expectation(description: "Wait for displayedContacts.observe() to receive a value")
         
         // when
+        sut.viewModel.output.displayedContacts.observe(on: self) { (_) in
+            expect.fulfill()
+        }
         sut.view.layoutIfNeeded()
         
         // then
+        waitForExpectations(timeout: 1.0, handler: nil)
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0), 2)
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 1), 1)
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 2), 1)

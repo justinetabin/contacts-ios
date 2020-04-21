@@ -14,24 +14,18 @@ protocol ListContactsViewModelType {
 }
 
 class ListContactsViewModel: ListContactsViewModelType {
-    
+    var worker: ContactsWorker
     var input: ListContactsViewModel.Input = Input()
     var output: ListContactsViewModel.Output = Output()
-    var worker: ContactsWorker
     
     private var contacts = [Contact]()
     
     struct Input {
-        var fetchContacts = Observable(())
-        var reloadData = Observable(())
-        var didCreateContact: Observable<Contact?> = Observable(nil)
-        var didUpdateContact: Observable<Contact?> = Observable(nil)
+        var viewDidLoad: (() -> Void)!
     }
     
     struct Output {
-        var displayedContacts: [[DisplayableContact]] = []
-        var numberOfSections: Int = 0
-        var numberOfRowsInSection: [Int] = []
+        var displayedContacts: Observable<[[DisplayableContact]]> = Observable([])
         var titleForHeaderInSection: [String] = []
         var sectionIndexTitles: [String] = []
     }
@@ -44,41 +38,25 @@ class ListContactsViewModel: ListContactsViewModelType {
     init(factory: WorkerFactory) {
         worker = factory.makeContactsWorker()
         
-        input.didCreateContact.observe(on: self) { [unowned self] (contact) in
-            if let contact = contact {
-                self.contacts.append(contact)
-                self.input.reloadData.value = ()
-            }
-        }
-        
-        input.fetchContacts.observe(on: self) { [weak self] (_) in
-            guard let self = self else { return }
+        input.viewDidLoad = {
             self.worker.fetchContacts { (contacts) in
                 self.contacts = contacts
-                self.input.reloadData.value = ()
+                self.setContacts()
             }
         }
-        
-        input.reloadData.observe(on: self) { [unowned self] (_) in
-            let contactGroups = self.worker.groupContacts(contacts: self.contacts)
-            self.output.numberOfSections = contactGroups.count
-            self.output.numberOfRowsInSection = contactGroups.map { $0.contacts.count }
-            self.output.displayedContacts = contactGroups.map {
-                $0.contacts.map { DisplayableContact(id: $0._id, fullname: "\($0.firstName) \($0.lastName)") }
-            }
-            self.output.titleForHeaderInSection = contactGroups.map { $0.title }
-            self.output.sectionIndexTitles = contactGroups.map { $0.title.first!.uppercased() }
-        }
-        
-        input.didUpdateContact.observe(on: self) { [unowned self] (contact) in
-            if let contact = contact {
-                if let contactIndex = self.contacts.firstIndex(where: { (_contact) -> Bool in
-                    return _contact._id == contact._id  
-                }) {
-                    self.contacts[contactIndex] = contact
-                    self.input.reloadData.value = ()
-                }
+    }
+    
+    private func setContacts() {
+        let contactGroups = self.worker.groupContacts(contacts: self.contacts)
+        self.output.displayedContacts.value = contactGroups.map {
+            $0.contacts.map {
+                DisplayableContact(
+                    id: $0._id,
+                    fullname: "\($0.firstName) \($0.lastName)"
+                )
             }
         }
+        self.output.titleForHeaderInSection = contactGroups.map { $0.title }
+        self.output.sectionIndexTitles = contactGroups.map { $0.title.first!.uppercased() }
     }
 }

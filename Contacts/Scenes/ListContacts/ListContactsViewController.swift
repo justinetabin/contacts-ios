@@ -22,12 +22,14 @@ class ListContactsViewController: UITableViewController {
         
         tableView.sectionIndexColor = UIColor.systemGray3
         
-        viewModel.input.reloadData.observe(on: self) { [weak self] (_) in
+        viewModel.output.displayedContacts.observe(on: self) { [weak self] (_) in
+            guard let self = self else { return }
             DispatchQueue.main.async {
-                self?.tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
-        viewModel.input.fetchContacts.value = ()
+        
+        viewModel.input.viewDidLoad?()
     }
     
     @objc func didTapAdd() {
@@ -41,17 +43,17 @@ extension ListContactsViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListContactsTableViewCell", for: indexPath) as! ListContactsTableViewCell
-        let displayableContact = viewModel.output.displayedContacts[indexPath.section][indexPath.row]
+        let displayableContact = viewModel.output.displayedContacts.value[indexPath.section][indexPath.row]
         cell.fullnameLabel.text = displayableContact.fullname
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.output.numberOfRowsInSection[section]
+        return viewModel.output.displayedContacts.value[section].count
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.output.numberOfSections
+        return viewModel.output.displayedContacts.value.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -63,7 +65,7 @@ extension ListContactsViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let displayedContact = viewModel.output.displayedContacts[indexPath.section][indexPath.row]
+        let displayedContact = viewModel.output.displayedContacts.value[indexPath.section][indexPath.row]
         let showContact = factory.makeShowContact(contactId: displayedContact.id)
         show(showContact, sender: nil)
     }
