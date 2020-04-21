@@ -14,7 +14,8 @@ class ObservableTextField: UITextField {
     var observable = Observable("") {
         didSet {
             editingChange(textField: self)
-            observable.observe(on: self) { [unowned self] (text) in
+            observable.observe(on: self) { [weak self] (text) in
+                guard let self = self else { return }
                 DispatchQueue.main.async {
                     self.text = text
                 }

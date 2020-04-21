@@ -25,8 +25,10 @@ final class Observable<Value> {
         self.value = value
     }
     
-    func observe(on observer: AnyObject, observerBlock: @escaping (Value) -> Void) {
+    @discardableResult
+    func observe(on observer: AnyObject, observerBlock: @escaping (Value) -> Void) -> Observable {
         observers.append(Observer(observer: observer, block: observerBlock))
+        return self
     }
     
     func remove(observer: AnyObject) {

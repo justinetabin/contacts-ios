@@ -15,19 +15,18 @@ protocol ListContactsViewModelType {
 
 class ListContactsViewModel: ListContactsViewModelType {
     var worker: ContactsWorker
-    var input: ListContactsViewModel.Input = Input()
-    var output: ListContactsViewModel.Output = Output()
-    
-    private var contacts = [Contact]()
+    var input: ListContactsViewModel.Input
+    var output: ListContactsViewModel.Output
+    private var contacts = [Contact]() 
     
     struct Input {
-        var viewDidLoad: (() -> Void)!
+        var viewDidLoad: Observable<()>
     }
     
     struct Output {
-        var displayedContacts: Observable<[[DisplayableContact]]> = Observable([])
-        var titleForHeaderInSection: [String] = []
-        var sectionIndexTitles: [String] = []
+        var displayedContacts: Observable<[[DisplayableContact]]>
+        var titleForHeaderInSection: [String]
+        var sectionIndexTitles: [String]
     }
     
     struct DisplayableContact {
@@ -37,8 +36,12 @@ class ListContactsViewModel: ListContactsViewModelType {
     
     init(factory: WorkerFactory) {
         worker = factory.makeContactsWorker()
+        input = Input(viewDidLoad: Observable(()))
+        output = Output(displayedContacts: Observable([]),
+                        titleForHeaderInSection: [],
+                        sectionIndexTitles: [])
         
-        input.viewDidLoad = {
+        input.viewDidLoad.observe(on: self) {
             self.worker.fetchContacts { (contacts) in
                 self.contacts = contacts
                 self.setContacts()

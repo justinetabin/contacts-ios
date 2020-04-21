@@ -29,7 +29,7 @@ class ListContactsViewController: UITableViewController {
             }
         }
         
-        viewModel.input.viewDidLoad?()
+        viewModel.input.viewDidLoad.value = ()
     }
     
     @objc func didTapAdd() {

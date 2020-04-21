@@ -30,7 +30,7 @@ class ListContactsViewModelTests: XCTestCase {
         sut.output.displayedContacts.observe(on: self) { (_) in
             expect.fulfill()
         }
-        sut.input.viewDidLoad?()
+        sut.input.viewDidLoad.value = ()
         
         // then
         waitForExpectations(timeout: 1.0, handler: nil)
