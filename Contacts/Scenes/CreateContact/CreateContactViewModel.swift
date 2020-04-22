@@ -62,6 +62,10 @@ class CreateContactViewModel: ViewModelType {
         }
     }
     
+    deinit {
+        
+    }
+    
 }
 
 extension CreateContactViewModel {

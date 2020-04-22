@@ -78,6 +78,10 @@ class UpdateContactViewModel: ViewModelType {
             }
         }
     }
+    
+    deinit {
+        
+    }
 }
 
 extension UpdateContactViewModel {

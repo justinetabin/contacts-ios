@@ -9,7 +9,20 @@
 import Foundation
 
 class ContactsWorker {
+    
+    struct Observers {
+        var didCreateContact: Observable<Contact?>
+        var didUpdateContact: Observable<Contact?>
+        
+        func remove(observer: AnyObject) {
+            didUpdateContact.remove(observer: observer)
+            didUpdateContact.remove(observer: observer)
+        }
+    }
+    
     let contactsStore: ContactsStoreProtocol
+    let observers: Observers = Observers(didCreateContact: Observable(nil),
+                                         didUpdateContact: Observable(nil))
     
     init(contactsStore: ContactsStoreProtocol) {
         self.contactsStore = contactsStore
@@ -52,6 +65,7 @@ class ContactsWorker {
     
     func createContact(contactToCreate: Contact, completion: @escaping (Contact?) -> Void) {
         contactsStore.createContact(contactToCreate: contactToCreate) { (contact, error) in
+            self.observers.didCreateContact.value = contact
             completion(contact)
         }
     }
@@ -64,6 +78,7 @@ class ContactsWorker {
     
     func updateContact(contactToUpdate: Contact, completion: @escaping (Contact?) -> Void) {
         contactsStore.updateContact(contactToUpdate: contactToUpdate) { (contact, error) in
+            self.observers.didUpdateContact.value = contact
             completion(contact)
         }
     }

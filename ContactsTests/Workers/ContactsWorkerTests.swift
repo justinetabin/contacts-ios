@@ -108,5 +108,82 @@ class ContactsWorkerTests: XCTestCase {
         waitForExpectations(timeout: 1.0, handler: nil)
         XCTAssertEqual(createdContact, expectedContact)
     }
+    
+    func test_whenCreatedContact_thenDidCreateObservableReceiveValue() {
+        // given
+        let expect = expectation(description: "Wait for didCreateContact.observe() receives value")
+        expect.expectedFulfillmentCount = 2
+        
+        // when
+        var gotContactInObserver: Contact?
+        sut.observers.didCreateContact.observe(on: self) { (contact) in
+            expect.fulfill()
+            gotContactInObserver = contact
+        }
+        
+        var gotContact: Contact?
+        sut.createContact(contactToCreate: Seeds.Contacts.cathy) { (contact) in
+            expect.fulfill()
+            gotContact = contact
+        }
+        
+        // then
+        waitForExpectations(timeout: 1.0, handler: nil)
+        XCTAssertEqual(gotContactInObserver, gotContact)
+    }
+    
+    func test_whenUpdatedContact_thenDidUpdateObservableReceiveValue() {
+        // given
+        let expect = expectation(description: "Wait for didCreateContact.observe() receives value")
+        expect.expectedFulfillmentCount = 2
+        
+        // when
+        var gotContactInObserver: Contact?
+        sut.observers.didUpdateContact.observe(on: self) { (contact) in
+            expect.fulfill()
+            gotContactInObserver = contact
+        }
+        
+        var gotContact: Contact?
+        sut.updateContact(contactToUpdate: Seeds.Contacts.cathy) { (contact) in
+            expect.fulfill()
+            gotContact = contact
+        }
+        
+        // then
+        waitForExpectations(timeout: 1.0, handler: nil)
+        XCTAssertEqual(gotContactInObserver, gotContact)
+    }
+    
+    func test_whenRemoveObservers_thenObserversShouldNotReceiveValue() {
+        // given
+        let expect = expectation(description: "Wait for createContact.observe(), updateContact.observe() receive value")
+        expect.expectedFulfillmentCount = 2
+        let expectObservers = expectation(description: "Observers should not receive value")
+        expectObservers.expectedFulfillmentCount = 2
+        expectObservers.isInverted = true
+        
+        // when
+        sut.observers.didCreateContact.observe(on: self) { (_) in
+            expectObservers.fulfill()
+        }
+        
+        sut.observers.didUpdateContact.observe(on: self) { (_) in
+            expectObservers.fulfill()
+        }
+        
+        sut.observers.remove(observer: self)
+        
+        sut.createContact(contactToCreate: Seeds.Contacts.cathy) { (_) in
+            expect.fulfill()
+        }
+        
+        sut.updateContact(contactToUpdate: Seeds.Contacts.cathy) { (_) in
+            expect.fulfill()
+        }
+        
+        // then
+        wait(for: [expect, expectObservers], timeout: 1.0)
+    }
 
 }

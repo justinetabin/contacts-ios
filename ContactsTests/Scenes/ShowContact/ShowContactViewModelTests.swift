@@ -20,6 +20,7 @@ class ShowContactViewModelTests: XCTestCase {
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
     }
     
     func test_whenSuccessfullyFetchedContact_thenShouldReloadData() {
@@ -82,6 +83,36 @@ class ShowContactViewModelTests: XCTestCase {
         XCTAssertEqual(sut.output.displayableSections.value[1].displayableRows[0].placeholder, "full name")
         XCTAssertEqual(sut.output.displayableSections.value[1].displayableRows[1].placeholder, "email")
         XCTAssertEqual(sut.output.displayableSections.value[1].displayableRows[2].placeholder, "mobile")
+    }
+    
+    func test_whenUpdatedContact_thenShouldUpdateDisplayedContact() {
+        // given
+        let expect = expectation(description: "Wait for updateContact() and displayableSections.observe() to finish")
+        expect.expectedFulfillmentCount = 4
+        let expectedContact = Seeds.Contacts.cathy
+        
+        // when
+        sut.output.displayableContact.fullname.observe(on: self) { (_) in
+            expect.fulfill()
+        }
+        
+        sut.output.displayableContact.email.observe(on: self) { (_) in
+            expect.fulfill()
+        }
+        
+        sut.output.displayableContact.phoneNumber.observe(on: self) { (_) in
+            expect.fulfill()
+        }
+        
+        sut.worker.updateContact(contactToUpdate: expectedContact) { (_) in
+            expect.fulfill()
+        }
+        
+        // then
+        waitForExpectations(timeout: 1.0, handler: nil)
+        XCTAssertEqual(sut.output.displayableContact.fullname.value, "\(expectedContact.firstName) \(expectedContact.lastName)")
+        XCTAssertEqual(sut.output.displayableContact.email.value, expectedContact.email)
+        XCTAssertEqual(sut.output.displayableContact.phoneNumber.value, expectedContact.phoneNumber)
     }
 
 }

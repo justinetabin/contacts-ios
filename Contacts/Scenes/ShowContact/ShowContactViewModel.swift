@@ -33,7 +33,6 @@ class ShowContactViewModel: ViewModelType {
                                                                    phoneNumber: Observable("")))
     var route: Route = Route(contactId: "")
     var worker: ContactsWorker
-    private var contact: Contact?
     
     init(contactId: String, factory: WorkerFactory) {
         worker = factory.makeContactsWorker()
@@ -43,16 +42,31 @@ class ShowContactViewModel: ViewModelType {
             guard let self = self else { return }
             self.worker.getContact(contactId: contactId) { (contact) in
                 if let contact = contact {
-                    self.output.displayableContact.fullname.value = "\(contact.firstName) \(contact.lastName)"
-                    self.output.displayableContact.email.value = contact.email
-                    self.output.displayableContact.phoneNumber.value = contact.phoneNumber
+                    self.setDisplayableContact(contact: contact)
                     self.output.displayableSections.value = [.heading, .detail]
                 } else {
                     self.output.presentableError.value = "Contact not found"
                 }
             }
         }
-    }    
+        
+        worker.observers.didUpdateContact.observe(on: self) { [weak self] (contact) in
+            guard let self = self else { return }
+            if let contact = contact {
+                self.setDisplayableContact(contact: contact)
+            }
+        }
+    }
+    
+    deinit {
+        
+    }
+    
+    private func setDisplayableContact(contact: Contact) {
+        self.output.displayableContact.fullname.value = "\(contact.firstName) \(contact.lastName)"
+        self.output.displayableContact.email.value = contact.email
+        self.output.displayableContact.phoneNumber.value = contact.phoneNumber
+    }
 }
 
 extension ShowContactViewModel {

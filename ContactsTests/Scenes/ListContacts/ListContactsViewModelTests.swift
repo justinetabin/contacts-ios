@@ -20,6 +20,7 @@ class ListContactsViewModelTests: XCTestCase {
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
     }
     
     func test_whenViewDidLoad_thenShouldDisplayContacts() {
@@ -39,5 +40,69 @@ class ListContactsViewModelTests: XCTestCase {
         ["C", "D", "J", "S"].enumerated().forEach { (offset, char) in
             XCTAssertEqual(sut.output.titleForHeader.value[offset], char)
         }
+    }
+    
+    func test_whenCreatedContact_thenShouldDisplayContact() {
+        // given
+        let expect = expectation(description: "")
+        expect.expectedFulfillmentCount = 2
+        let contactToCreate = Seeds.Contacts.cathy
+        
+        // when
+        sut.output.displayableContacts.observe(on: self) { (_) in
+            expect.fulfill()
+        }
+        
+        var gotContact: Contact?
+        sut.worker.createContact(contactToCreate: contactToCreate) { (contact) in
+            expect.fulfill()
+            gotContact = contact
+        }
+        
+        var displayedContact = false
+        sut.output.displayableContacts.value.forEach { (section) in
+            section.forEach { (row) in
+                if let contact = gotContact {
+                    displayedContact = row.fullname == "\(contact.firstName) \(contact.lastName)"
+                }
+            }
+        }
+        
+        // then
+        waitForExpectations(timeout: 1.0, handler: nil)
+        XCTAssert(displayedContact)
+    }
+    
+    func test_whenUpdatedContact_thenShouldUpdateDisplayedContact() {
+        // given
+        let expect = expectation(description: "")
+        expect.expectedFulfillmentCount = 2
+        var contactToUpdate = Seeds.Contacts.cathy
+        sut.contacts = [contactToUpdate]
+        contactToUpdate.firstName = "Momon"
+        
+        // when
+        sut.output.displayableContacts.observe(on: self) { (_) in
+            expect.fulfill()
+        }
+        
+        var gotContact: Contact?
+        sut.worker.updateContact(contactToUpdate: contactToUpdate) { (contact) in
+            expect.fulfill()
+            gotContact = contact
+        }
+        
+        var displayedContact = false
+        sut.output.displayableContacts.value.forEach { (section) in
+            section.forEach { (row) in
+                if let contact = gotContact {
+                    displayedContact = row.fullname == "\(contact.firstName) \(contact.lastName)"
+                }
+            }
+        }
+        
+        // then
+        waitForExpectations(timeout: 1.0, handler: nil)
+        XCTAssert(displayedContact)
     }
 }

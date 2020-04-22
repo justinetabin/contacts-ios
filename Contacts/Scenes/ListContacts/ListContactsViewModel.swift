@@ -31,7 +31,7 @@ class ListContactsViewModel {
                                 sectionIndexTitles: Observable([]))
     var worker: ContactsWorker
     
-    private var contacts = [Contact]()
+    var contacts = [Contact]()
     
     init(factory: WorkerFactory) {
         worker = factory.makeContactsWorker()
@@ -43,16 +43,40 @@ class ListContactsViewModel {
                 self.setDisplayableContact()
             }
         }
+        
+        worker.observers.didCreateContact.observe(on: self) { [weak self] (contact) in
+            guard let self = self else { return }
+            if let contact = contact {
+                self.contacts.append(contact)
+                // TODO: Do diff, instead of reloading entire table
+                self.setDisplayableContact()
+            }
+        }
+        
+        worker.observers.didUpdateContact.observe(on: self) { [weak self] (contact) in
+            guard let self = self else { return }
+            if let contact = contact {
+                if let index = self.contacts.firstIndex(where: { $0._id == contact._id }) {
+                    self.contacts[index] = contact
+                    // TODO: Do diff, instead of reloading entire table
+                    self.setDisplayableContact()
+                }
+            }
+        }
+    }
+    
+    deinit {
+        worker.observers.remove(observer: self)
     }
     
     private func setDisplayableContact() {
         let groupedContacts = worker.groupContacts(contacts: contacts)
+        self.output.titleForHeader.value = groupedContacts.map { $0.title }
+        self.output.sectionIndexTitles.value = groupedContacts.map { $0.title.first!.uppercased() }
         self.output.displayableContacts.value = groupedContacts.map {
             $0.contacts.map {
                 DisplayContact(id: $0._id, fullname: "\($0.firstName) \($0.lastName)")
             }
         }
-        self.output.titleForHeader.value = groupedContacts.map { $0.title }
-        self.output.sectionIndexTitles.value = groupedContacts.map { $0.title.first!.uppercased() }
     }
 }

@@ -41,6 +41,7 @@ class ShowContactViewController: UITableViewController {
         let vc = factory.makeUpdateContact(contactId: viewModel.route.contactId)
         show(vc, sender: nil)
     }
+    
 }
 
 extension ShowContactViewController {
