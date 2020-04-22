@@ -36,7 +36,7 @@ class CreateContactViewModelTests: XCTestCase {
         sut.input.didEnterEmail.value = email
         sut.input.didEnterPhoneNumber.value = phoneNumber
         var createdContact: Contact?
-        sut.input.didCreateContact.observe(on: self) { (contact) in
+        sut.output.createdContact.observe(on: self) { (contact) in
             expect.fulfill()
             createdContact = contact
         }
@@ -75,24 +75,16 @@ class CreateContactViewModelTests: XCTestCase {
         // given
         
         // when
+        sut.input.viewDidLoad.value = ()
         
         // then
-        XCTAssertEqual(sut.output.displayableSections, [.heading, .detail])
-        XCTAssertEqual(sut.output.numberOfSections, 2)
-        sut.output.displayableSections.forEach { (section) in
+        XCTAssertEqual(sut.output.displayableSections.value, [.heading, .detail])
+        sut.output.displayableSections.value.forEach { (section) in
             switch section {
             case .heading:
                 XCTAssertEqual(section.displayableRows, [.avatar])
-                XCTAssertEqual(sut.output.numberOfRowsInSection(section: section.rawValue), 1)
-                section.displayableRows.enumerated().forEach { (index, row) in
-                    XCTAssertEqual(sut.output.heightForRowInSection(section: section.rawValue, row: index), 200)
-                }
             case .detail:
                 XCTAssertEqual(section.displayableRows, [.firstName, .lastName, .email, .phoneNumber])
-                XCTAssertEqual(sut.output.numberOfRowsInSection(section: section.rawValue), 4)
-                section.displayableRows.enumerated().forEach { (index, row) in
-                    XCTAssertEqual(sut.output.heightForRowInSection(section: section.rawValue, row: index), 80)
-                }
             }
             
             section.displayableRows.forEach { (row) in

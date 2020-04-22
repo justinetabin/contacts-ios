@@ -12,7 +12,7 @@ import UIKit
 class CreateContactViewController: UITableViewController {
     
     var factory: ViewControllerFactory!
-    var viewModel: CreateContactViewModelType!
+    var viewModel: CreateContactViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,11 +21,12 @@ class CreateContactViewController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(didTapSave))
         
-        viewModel.input.didTapSave.observe(on: self) { [unowned self] (_) in
+        viewModel.input.didTapSave.observe(on: self) { [weak self] (_) in
+            guard let self = self else { return }
             self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
         
-        viewModel.input.didCreateContact.observe(on: self) { [weak self] (contact) in
+        viewModel.output.createdContact.observe(on: self) { [weak self] (contact) in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.navigationItem.rightBarButtonItem?.isEnabled = true
@@ -42,6 +43,8 @@ class CreateContactViewController: UITableViewController {
                 self.present(alertVC, animated: true, completion: nil)
             }
         }
+        
+        viewModel.input.viewDidLoad.value = ()
     }
     
     @objc func didTapSave() {
@@ -52,7 +55,7 @@ class CreateContactViewController: UITableViewController {
 extension CreateContactViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let displayableSection = viewModel.output.displayableSections[indexPath.section]
+        let displayableSection = viewModel.output.displayableSections.value[indexPath.section]
         let displayableRow = displayableSection.displayableRows[indexPath.row]
         
         switch displayableRow {
@@ -91,14 +94,14 @@ extension CreateContactViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.output.numberOfRowsInSection(section: section)
+        return viewModel.output.displayableSections.value[section].numberOfRows
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.output.numberOfSections
+        return viewModel.output.displayableSections.value.count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(viewModel.output.heightForRowInSection(section: indexPath.section, row: indexPath.row))
+        return CGFloat(viewModel.output.displayableSections.value[indexPath.section].displayableRows[indexPath.row].rowHeight)
     }
 }

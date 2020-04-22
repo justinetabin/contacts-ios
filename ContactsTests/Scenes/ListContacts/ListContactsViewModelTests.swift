@@ -27,15 +27,17 @@ class ListContactsViewModelTests: XCTestCase {
         let expect = expectation(description: "Wait for displayedContacts.observe() to receive a value")
         
         // when
-        sut.output.displayedContacts.observe(on: self) { (_) in
+        sut.output.displayableContacts.observe(on: self) { (_) in
             expect.fulfill()
         }
         sut.input.viewDidLoad.value = ()
         
         // then
         waitForExpectations(timeout: 1.0, handler: nil)
-        XCTAssertEqual(sut.output.displayedContacts.value.count, 4)
-        XCTAssertEqual(sut.output.sectionIndexTitles, ["C", "D", "J", "S"])
-        XCTAssertEqual(sut.output.titleForHeaderInSection, ["C", "D", "J", "S"])
+        XCTAssertEqual(sut.output.displayableContacts.value.count, 4)
+        XCTAssertEqual(sut.output.sectionIndexTitles.value, ["C", "D", "J", "S"])
+        ["C", "D", "J", "S"].enumerated().forEach { (offset, char) in
+            XCTAssertEqual(sut.output.titleForHeader.value[offset], char)
+        }
     }
 }

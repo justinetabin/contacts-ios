@@ -65,10 +65,10 @@ class CreateContactsViewControllerTests: XCTestCase {
         window.rootViewController = sut
         
         sut.view.layoutIfNeeded()
-        sut.viewModel.input.didCreateContact.value = Seeds.Contacts.cathy
+        sut.viewModel.output.createdContact.value = Seeds.Contacts.cathy
         let previousVCCount = nav.viewControllers.count
         var currentVCCount = nav.viewControllers.count
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             expect.fulfill()
             currentVCCount = nav.viewControllers.count
         }
@@ -93,7 +93,7 @@ class CreateContactsViewControllerTests: XCTestCase {
         var saveIsEnabledOnCreated: Bool? = false
         
         saveIsEnabledBeforeSave = sut.navigationItem.rightBarButtonItem?.isEnabled
-        sut.viewModel.input.didCreateContact.observe(on: self) { [unowned self] (_) in
+        sut.viewModel.output.createdContact.observe(on: self) { [unowned self] (_) in
             expect.fulfill()
             saveIsEnabledOnCreated = self.sut.navigationItem.rightBarButtonItem?.isEnabled
         }
@@ -120,7 +120,7 @@ class CreateContactsViewControllerTests: XCTestCase {
         sut.beginAppearanceTransition(true, animated: false)
         sut.endAppearanceTransition()
         sut.viewModel.output.presentableError.observe(on: self) { (_) in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.async {
                 expect.fulfill()
             }
         }

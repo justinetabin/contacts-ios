@@ -24,13 +24,13 @@ class ShowContactViewModelTests: XCTestCase {
     
     func test_whenSuccessfullyFetchedContact_thenShouldReloadData() {
         // given
-        let expect = expectation(description: "Wait for reloadData.observe() to receive a value")
+        let expect = expectation(description: "Wait for displayableSections.observe() to receive a value")
         
         // when
-        sut.input.reloadData.observe(on: self) { (_) in
+        sut.output.displayableSections.observe(on: self) { (_) in
             expect.fulfill()
         }
-        sut.input.fetchContact.value = ()
+        sut.input.viewDidLoad.value = ()
         
         // then
         waitForExpectations(timeout: 1.0, handler: nil)
@@ -51,35 +51,37 @@ class ShowContactViewModelTests: XCTestCase {
             expect.fulfill()
             gotMessage = message
         }
-        sut.input.fetchContact.value = ()
+        sut.input.viewDidLoad.value = ()
         
         // then
         waitForExpectations(timeout: 1.0, handler: nil)
         XCTAssertEqual(gotMessage, "Contact not found")
     }
     
-    func test_whenInit_thenShouldReturnTableDataSource() {
+    func test_whenViewDidLoad_thenShouldReturnTableDataSource() {
         // given
         
         // when
+        sut.input.viewDidLoad.value = ()
         
         // then
-        XCTAssertEqual(sut.output.numberOfSections, 2)
-        XCTAssertEqual(sut.output.numberOfRowsInSection(section: 0), 1)
-        XCTAssertEqual(sut.output.numberOfRowsInSection(section: 1), 3)
-        XCTAssertEqual(sut.output.heightForRowInSection(section: 0, row: 0), 200)
-        XCTAssertEqual(sut.output.heightForRowInSection(section: 1, row: 0), 80)
+        XCTAssertEqual(sut.output.displayableSections.value.count, 2)
+        XCTAssertEqual(sut.output.displayableSections.value[0].numberOfRows, 1)
+        XCTAssertEqual(sut.output.displayableSections.value[1].numberOfRows, 3)
+        XCTAssertEqual(sut.output.displayableSections.value[0].displayableRows[0].rowHeight, 200)
+        XCTAssertEqual(sut.output.displayableSections.value[1].displayableRows[0].rowHeight, 80)
     }
     
-    func test_whenInit_thenShouldReturnDisplayablePlaceholder() {
+    func test_whenViewDidLoad_thenShouldReturnDisplayablePlaceholder() {
         // given
         
         // when
+        sut.input.viewDidLoad.value = ()
         
         // then
-        XCTAssertEqual(sut.output.displayableSections[1].displayableRows[0].placeholder, "full name")
-        XCTAssertEqual(sut.output.displayableSections[1].displayableRows[1].placeholder, "email")
-        XCTAssertEqual(sut.output.displayableSections[1].displayableRows[2].placeholder, "mobile")
+        XCTAssertEqual(sut.output.displayableSections.value[1].displayableRows[0].placeholder, "full name")
+        XCTAssertEqual(sut.output.displayableSections.value[1].displayableRows[1].placeholder, "email")
+        XCTAssertEqual(sut.output.displayableSections.value[1].displayableRows[2].placeholder, "mobile")
     }
 
 }

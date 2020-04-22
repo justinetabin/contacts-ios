@@ -33,13 +33,16 @@ class ListContactsViewControllerTests: XCTestCase {
         let expect = expectation(description: "Wait for displayedContacts.observe() to receive a value")
         
         // when
-        sut.viewModel.output.displayedContacts.observe(on: self) { (_) in
+        sut.viewModel.output.displayableContacts.observe(on: self) { (_) in
             expect.fulfill()
         }
+        window.makeKeyAndVisible()
         sut.view.layoutIfNeeded()
         
         // then
         waitForExpectations(timeout: 1.0, handler: nil)
+        let cell = sut.tableView(sut.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as! ListContactsTableViewCell
+        XCTAssertEqual(cell.fullnameLabel.text, "Cathy Mooney")
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0), 2)
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 1), 1)
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 2), 1)
@@ -57,11 +60,11 @@ class ListContactsViewControllerTests: XCTestCase {
         let expect = expectation(description: "Wait for UI thread to finish")
         
         // when
-        sut.view.layoutIfNeeded()
+        window.makeKeyAndVisible()
         sut.didTapAdd()
         
         var vcStacks: Int?
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.async {
             expect.fulfill()
             vcStacks = self.sut.navigationController?.viewControllers.count
         }
@@ -78,7 +81,7 @@ class ListContactsViewControllerTests: XCTestCase {
         // when
         sut.tableView(sut.tableView, didSelectRowAt: IndexPath(row: 0, section: 0))
         var topViewController: UIViewController?
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             expect.fulfill()
             topViewController = self.nav.topViewController
         }

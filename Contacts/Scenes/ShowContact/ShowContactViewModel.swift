@@ -8,77 +8,61 @@
 
 import Foundation
 
-protocol ShowContactViewModelType {
-    var input: ShowContactViewModel.Input { get set }
-    var output: ShowContactViewModel.Output { get set }
-    var route: ShowContactViewModel.Route { get set }
-}
-
-class ShowContactViewModel: ShowContactViewModelType {
-    
-    var input: ShowContactViewModel.Input = Input()
-    var output: ShowContactViewModel.Output = Output()
-    var route: ShowContactViewModel.Route = Route()
-    
-    var worker: ContactsWorker
-    var contact: Contact?
+class ShowContactViewModel: ViewModelType {
 
     struct Input {
-        var fetchContact = Observable(())
-        var reloadData = Observable(())
-        var didUpdateContact: Observable<Contact?> = Observable(nil)
+        var viewDidLoad: Observable<()>
     }
     
     struct Output {
-        var presentableError = Observable("")
-        var displayableSections: [TableSection] = [.heading, .detail]
-        var displayableContact = DisplayableContact()
-        var numberOfSections: Int { return displayableSections.count }
-        func numberOfRowsInSection(section: Int) -> Int { return displayableSections[section].numberOfRows }
-        func heightForRowInSection(section: Int, row: Int) -> Double { return displayableSections[section].displayableRows[row].rowHeight }
+        var presentableError: Observable<String>
+        var displayableSections: Observable<[TableSection]>
+        var displayableContact: DisplayContact
     }
     
     struct Route {
-        var contactId = ""
+        var contactId: String
     }
     
-    struct DisplayableContact {
-        var avatarUrl = Observable("")
-        var fullname = Observable("")
-        var email = Observable("")
-        var phoneNumber = Observable("")
-    }
+    var input: Input = Input(viewDidLoad: Observable(()))
+    var output: Output = Output(presentableError: Observable(""),
+                                displayableSections: Observable([]),
+                                displayableContact: DisplayContact(avatarUrl: Observable(""),
+                                                                   fullname: Observable(""),
+                                                                   email: Observable(""),
+                                                                   phoneNumber: Observable("")))
+    var route: Route = Route(contactId: "")
+    var worker: ContactsWorker
+    private var contact: Contact?
     
     init(contactId: String, factory: WorkerFactory) {
-        route.contactId = contactId
         worker = factory.makeContactsWorker()
+        route.contactId = contactId
         
-        input.fetchContact.observe(on: self) { [weak self] (_) in
+        input.viewDidLoad.observe(on: self) { [weak self] (_) in
             guard let self = self else { return }
             self.worker.getContact(contactId: contactId) { (contact) in
-                self.contact = contact
-                self.input.reloadData.value = ()
+                if let contact = contact {
+                    self.output.displayableContact.fullname.value = "\(contact.firstName) \(contact.lastName)"
+                    self.output.displayableContact.email.value = contact.email
+                    self.output.displayableContact.phoneNumber.value = contact.phoneNumber
+                    self.output.displayableSections.value = [.heading, .detail]
+                } else {
+                    self.output.presentableError.value = "Contact not found"
+                }
             }
-        }
-        
-        input.reloadData.observe(on: self) { [unowned self] (_) in
-            if let contact = self.contact {
-                self.output.displayableContact.fullname.value = "\(contact.firstName) \(contact.lastName)"
-                self.output.displayableContact.email.value = contact.email
-                self.output.displayableContact.phoneNumber.value = contact.phoneNumber
-            } else {
-                self.output.presentableError.value = "Contact not found"
-            }
-        }
-        
-        input.didUpdateContact.observe(on: self) { [unowned self] (contact) in
-            self.contact = contact
-            self.input.reloadData.value = ()
         }
     }    
 }
 
 extension ShowContactViewModel {
+    
+    struct DisplayContact {
+        var avatarUrl: Observable<String>
+        var fullname: Observable<String>
+        var email: Observable<String>
+        var phoneNumber: Observable<String>
+    }
     
     enum TableSection: Int, CaseIterable {
         case heading

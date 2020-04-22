@@ -12,7 +12,7 @@ import UIKit
 class ListContactsViewController: UITableViewController {
     
     var factory: ViewControllerFactory!
-    var viewModel: ListContactsViewModelType!
+    var viewModel: ListContactsViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +22,7 @@ class ListContactsViewController: UITableViewController {
         
         tableView.sectionIndexColor = UIColor.systemGray3
         
-        viewModel.output.displayedContacts.observe(on: self) { [weak self] (_) in
+        viewModel.output.displayableContacts.observe(on: self) { [weak self] (_) in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -43,29 +43,29 @@ extension ListContactsViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListContactsTableViewCell", for: indexPath) as! ListContactsTableViewCell
-        let displayableContact = viewModel.output.displayedContacts.value[indexPath.section][indexPath.row]
+        let displayableContact = viewModel.output.displayableContacts.value[indexPath.section][indexPath.row]
         cell.fullnameLabel.text = displayableContact.fullname
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.output.displayedContacts.value[section].count
+        return viewModel.output.displayableContacts.value[section].count
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.output.displayedContacts.value.count
+        return viewModel.output.displayableContacts.value.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel.output.titleForHeaderInSection[section]
+        return viewModel.output.titleForHeader.value[section]
     }
     
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return viewModel.output.sectionIndexTitles
+        return viewModel.output.sectionIndexTitles.value
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let displayedContact = viewModel.output.displayedContacts.value[indexPath.section][indexPath.row]
+        let displayedContact = viewModel.output.displayableContacts.value[indexPath.section][indexPath.row]
         let showContact = factory.makeShowContact(contactId: displayedContact.id)
         show(showContact, sender: nil)
     }

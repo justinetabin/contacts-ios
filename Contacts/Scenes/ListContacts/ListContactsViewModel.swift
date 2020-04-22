@@ -8,58 +8,51 @@
 
 import Foundation
 
-protocol ListContactsViewModelType {
-    var input: ListContactsViewModel.Input { get set }
-    var output: ListContactsViewModel.Output { get set }
-}
-
-class ListContactsViewModel: ListContactsViewModelType {
-    var worker: ContactsWorker
-    var input: ListContactsViewModel.Input
-    var output: ListContactsViewModel.Output
-    private var contacts = [Contact]() 
+class ListContactsViewModel {
     
     struct Input {
         var viewDidLoad: Observable<()>
     }
     
     struct Output {
-        var displayedContacts: Observable<[[DisplayableContact]]>
-        var titleForHeaderInSection: [String]
-        var sectionIndexTitles: [String]
+        var displayableContacts: Observable<[[DisplayContact]]>
+        var titleForHeader: Observable<[String]>
+        var sectionIndexTitles: Observable<[String]>
     }
-    
-    struct DisplayableContact {
+
+    struct DisplayContact {
         var id: String
         var fullname: String
     }
     
+    var input: Input = Input(viewDidLoad: Observable(()))
+    var output: Output = Output(displayableContacts: Observable([]),
+                                titleForHeader: Observable([]),
+                                sectionIndexTitles: Observable([]))
+    var worker: ContactsWorker
+    
+    private var contacts = [Contact]()
+    
     init(factory: WorkerFactory) {
         worker = factory.makeContactsWorker()
-        input = Input(viewDidLoad: Observable(()))
-        output = Output(displayedContacts: Observable([]),
-                        titleForHeaderInSection: [],
-                        sectionIndexTitles: [])
         
-        input.viewDidLoad.observe(on: self) {
+        input.viewDidLoad.observe(on: self) { [weak self] (_) in
+            guard let self = self else { return }
             self.worker.fetchContacts { (contacts) in
                 self.contacts = contacts
-                self.setContacts()
+                self.setDisplayableContact()
             }
         }
     }
     
-    private func setContacts() {
-        let contactGroups = self.worker.groupContacts(contacts: self.contacts)
-        self.output.displayedContacts.value = contactGroups.map {
+    private func setDisplayableContact() {
+        let groupedContacts = worker.groupContacts(contacts: contacts)
+        self.output.displayableContacts.value = groupedContacts.map {
             $0.contacts.map {
-                DisplayableContact(
-                    id: $0._id,
-                    fullname: "\($0.firstName) \($0.lastName)"
-                )
+                DisplayContact(id: $0._id, fullname: "\($0.firstName) \($0.lastName)")
             }
         }
-        self.output.titleForHeaderInSection = contactGroups.map { $0.title }
-        self.output.sectionIndexTitles = contactGroups.map { $0.title.first!.uppercased() }
+        self.output.titleForHeader.value = groupedContacts.map { $0.title }
+        self.output.sectionIndexTitles.value = groupedContacts.map { $0.title.first!.uppercased() }
     }
 }

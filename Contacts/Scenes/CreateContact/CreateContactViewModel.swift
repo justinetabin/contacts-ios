@@ -8,36 +8,41 @@
 
 import Foundation
 
-protocol CreateContactViewModelType {
-    var input: CreateContactViewModel.Input { get set }
-    var output: CreateContactViewModel.Output { get set }
-}
-
-class CreateContactViewModel: CreateContactViewModelType {
-    
-    var input: CreateContactViewModel.Input = Input()
-    var output: CreateContactViewModel.Output = Output()
-    var worker: ContactsWorker!
+class CreateContactViewModel: ViewModelType {
     
     struct Input {
-        var didTapSave = Observable(())
-        var didEnterFirstName = Observable("")
-        var didEnterLastName = Observable("")
-        var didEnterEmail = Observable("")
-        var didEnterPhoneNumber = Observable("")
-        var didCreateContact: Observable<Contact?> = Observable(nil)
+        var viewDidLoad: Observable<()>
+        var didTapSave: Observable<()>
+        var didEnterFirstName: Observable<String>
+        var didEnterLastName: Observable<String>
+        var didEnterEmail: Observable<String>
+        var didEnterPhoneNumber: Observable<String>
     }
     
     struct Output {
-        var presentableError = Observable("")
-        var displayableSections: [TableSection] = [.heading, .detail]
-        var numberOfSections: Int { return displayableSections.count }
-        func numberOfRowsInSection(section: Int) -> Int { return displayableSections[section].numberOfRows }
-        func heightForRowInSection(section: Int, row: Int) -> Double { return displayableSections[section].displayableRows[row].rowHeight }
+        var createdContact: Observable<Contact?>
+        var presentableError: Observable<String>
+        var displayableSections: Observable<[TableSection]>
     }
+    
+    var input: Input = Input(viewDidLoad: Observable(()),
+                             didTapSave: Observable(()),
+                             didEnterFirstName: Observable(""),
+                             didEnterLastName: Observable(""),
+                             didEnterEmail: Observable(""),
+                             didEnterPhoneNumber: Observable(""))
+    var output: Output = Output(createdContact: Observable(nil),
+                                presentableError: Observable(""),
+                                displayableSections: Observable([]))
+    var worker: ContactsWorker
     
     init(factory: WorkerFactory) {
         worker = factory.makeContactsWorker()
+        
+        input.viewDidLoad.observe(on: self) { [weak self] (_) in
+            guard let self = self else { return }
+            self.output.displayableSections.value = [.heading, .detail]
+        }
         
         input.didTapSave.observe(on: self) { [weak self] (_) in
             guard let self = self else { return }
@@ -49,7 +54,7 @@ class CreateContactViewModel: CreateContactViewModelType {
                                   createdAt: "",
                                   updatedAt: "")
             self.worker.createContact(contactToCreate: contact) { (contact) in
-                self.input.didCreateContact.value = contact
+                self.output.createdContact.value = contact
                 if contact == nil {
                     self.output.presentableError.value = "Contact not created"
                 }

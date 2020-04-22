@@ -14,6 +14,7 @@
 		CF19C70824432CDA00AFC7A9 /* CreateContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C70724432CDA00AFC7A9 /* CreateContactViewController.swift */; };
 		CF19C70A2443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C7092443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift */; };
 		CF19C70C244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C70B244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift */; };
+		CF7FD23D244FD09D00AE928C /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7FD23C244FD09D00AE928C /* ViewModelType.swift */; };
 		CF8560202449AB6100C52E36 /* ShowContactViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF85601F2449AB6100C52E36 /* ShowContactViewModelTests.swift */; };
 		CF8560232449E22900C52E36 /* UpdateContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8560222449E22900C52E36 /* UpdateContactViewController.swift */; };
 		CF8560262449E26100C52E36 /* UpdateContactViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8560252449E26100C52E36 /* UpdateContactViewControllerTests.swift */; };
@@ -70,6 +71,7 @@
 		CF19C70724432CDA00AFC7A9 /* CreateContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactViewController.swift; sourceTree = "<group>"; };
 		CF19C7092443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactInputDetailTableViewCell.swift; sourceTree = "<group>"; };
 		CF19C70B244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactInputAvatarTableViewCell.swift; sourceTree = "<group>"; };
+		CF7FD23C244FD09D00AE928C /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		CF85601F2449AB6100C52E36 /* ShowContactViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactViewModelTests.swift; sourceTree = "<group>"; };
 		CF8560222449E22900C52E36 /* UpdateContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateContactViewController.swift; sourceTree = "<group>"; };
 		CF8560252449E26100C52E36 /* UpdateContactViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateContactViewControllerTests.swift; sourceTree = "<group>"; };
@@ -161,6 +163,13 @@
 			path = CreateContact;
 			sourceTree = "<group>";
 		};
+		CF7FD23E2450424600AE928C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		CF8560212449E20B00C52E36 /* UpdateContact */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				CF8F8752244469380010AFD4 /* ObservableTextField.swift */,
+				CF7FD23C244FD09D00AE928C /* ViewModelType.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -233,6 +243,7 @@
 		CFAFEDD224401ECF006557D1 /* ContactsTests */ = {
 			isa = PBXGroup;
 			children = (
+				CF7FD23E2450424600AE928C /* Utils */,
 				CFAFEDEB24404C0E006557D1 /* Services */,
 				CFAFEDF92441B82B006557D1 /* Workers */,
 				CF19C6F82442E15A00AFC7A9 /* Scenes */,
@@ -488,6 +499,7 @@
 				CFAFEDEA24404BEE006557D1 /* ContactsApi.swift in Sources */,
 				CF19C70C244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift in Sources */,
 				CF85602E2449EF0B00C52E36 /* UpdateContactInputDetailTableViewCell.swift in Sources */,
+				CF7FD23D244FD09D00AE928C /* ViewModelType.swift in Sources */,
 				CFAFEDF624416E20006557D1 /* ContactsWorker.swift in Sources */,
 				CFAFEDEF24404C61006557D1 /* Contact.swift in Sources */,
 				CF8560282449E27700C52E36 /* UpdateContactViewModel.swift in Sources */,

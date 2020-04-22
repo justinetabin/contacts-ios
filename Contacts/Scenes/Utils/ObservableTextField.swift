@@ -13,7 +13,7 @@ class ObservableTextField: UITextField {
     
     var observable = Observable("") {
         didSet {
-            editingChange(textField: self)
+            text = observable.value
             observable.observe(on: self) { [weak self] (text) in
                 guard let self = self else { return }
                 DispatchQueue.main.async {

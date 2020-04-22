@@ -29,12 +29,12 @@ class UpdateContactViewModelTests: XCTestCase {
         
         // when
         var saveEnables: [Bool] = []
-        sut.input.setSaveEnable.observe(on: self) { (bool) in
+        sut.output.saveEnable.observe(on: self) { (bool) in
             expect.fulfill()
             // first call should disable, second should re-enable
             saveEnables.append(bool)
         }
-        sut.input.fetchContact.value = ()
+        sut.input.viewDidLoad.value = ()
         
         // then
         waitForExpectations(timeout: 1.0, handler: nil)
@@ -53,7 +53,7 @@ class UpdateContactViewModelTests: XCTestCase {
             expect.fulfill()
             gotMessage = message
         }
-        sut.input.fetchContact.value = ()
+        sut.input.viewDidLoad.value = ()
         
         // then
         waitForExpectations(timeout: 1.0, handler: nil)
@@ -98,13 +98,13 @@ class UpdateContactViewModelTests: XCTestCase {
         sut.input.didEnterPhoneNumber.value = expectedContact.phoneNumber
         
         var saveEnables: [Bool] = []
-        sut.input.setSaveEnable.observe(on: self) { (bool) in
+        sut.output.saveEnable.observe(on: self) { (bool) in
             expect.fulfill()
             saveEnables.append(bool)
         }
         
         var gotContact: Contact?
-        sut.input.didUpdateContact.observe(on: self) { (contact) in
+        sut.output.updatedContact.observe(on: self) { (contact) in
             expect.fulfill()
             gotContact = contact
         }
@@ -116,29 +116,31 @@ class UpdateContactViewModelTests: XCTestCase {
         XCTAssertEqual(saveEnables, [false, true])
     }
     
-    func test_whenInit_thenShouldReturnTableDataSource() {
+    func test_whenViewDidLoad_thenShouldReturnTableDataSource() {
         // given
         
         // when
+        sut.input.viewDidLoad.value = ()
         
         // then
-        XCTAssertEqual(sut.output.numberOfSections, 2)
-        XCTAssertEqual(sut.output.numberOfRowsInSection(section: 0), 1)
-        XCTAssertEqual(sut.output.numberOfRowsInSection(section: 1), 4)
-        XCTAssertEqual(sut.output.heightForRowInSection(section: 0, row: 0), 200)
-        XCTAssertEqual(sut.output.heightForRowInSection(section: 1, row: 0), 80)
+        XCTAssertEqual(sut.output.displayableSections.value.count, 2)
+        XCTAssertEqual(sut.output.displayableSections.value[0].displayableRows.count, 1)
+        XCTAssertEqual(sut.output.displayableSections.value[1].displayableRows.count, 4)
+        XCTAssertEqual(sut.output.displayableSections.value[0].displayableRows[0].rowHeight, 200)
+        XCTAssertEqual(sut.output.displayableSections.value[1].displayableRows[0].rowHeight, 80)
     }
     
-    func test_whenInit_thenShouldReturnDisplayablePlaceholder() {
+    func test_whenViewDidLoad_thenShouldReturnDisplayablePlaceholder() {
         // given
         
         // when
+        sut.input.viewDidLoad.value = ()
         
         // then
-        XCTAssertEqual(sut.output.displayableSections[1].displayableRows[0].placeholder, "First Name")
-        XCTAssertEqual(sut.output.displayableSections[1].displayableRows[1].placeholder, "Last Name")
-        XCTAssertEqual(sut.output.displayableSections[1].displayableRows[2].placeholder, "email")
-        XCTAssertEqual(sut.output.displayableSections[1].displayableRows[3].placeholder, "mobile")
+        XCTAssertEqual(sut.output.displayableSections.value[1].displayableRows[0].placeholder, "First Name")
+        XCTAssertEqual(sut.output.displayableSections.value[1].displayableRows[1].placeholder, "Last Name")
+        XCTAssertEqual(sut.output.displayableSections.value[1].displayableRows[2].placeholder, "email")
+        XCTAssertEqual(sut.output.displayableSections.value[1].displayableRows[3].placeholder, "mobile")
     }
 
 }

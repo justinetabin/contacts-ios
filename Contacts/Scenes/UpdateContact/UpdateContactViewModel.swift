@@ -8,52 +8,51 @@
 
 import Foundation
 
-protocol UpdateContactViewModelType {
-    var input: UpdateContactViewModel.Input { get set }
-    var output: UpdateContactViewModel.Output { get set }
-}
-
-class UpdateContactViewModel: UpdateContactViewModelType {
-    
-    var input: UpdateContactViewModel.Input = Input()
-    var output: UpdateContactViewModel.Output = Output()
-    var worker: ContactsWorker
+class UpdateContactViewModel: ViewModelType {
     
     struct Input {
-        var setSaveEnable = Observable(true)
-        var didTapSave = Observable(())
-        
-        var didEnterFirstName = Observable("")
-        var didEnterLastName = Observable("")
-        var didEnterEmail = Observable("")
-        var didEnterPhoneNumber = Observable("")
-        
-        var fetchContact = Observable(())
-        var didUpdateContact: Observable<Contact?> = Observable(nil)
+        var viewDidLoad: Observable<()>
+        var didTapSave: Observable<()>
+        var didEnterFirstName: Observable<String>
+        var didEnterLastName: Observable<String>
+        var didEnterEmail: Observable<String>
+        var didEnterPhoneNumber: Observable<String>
     }
     
     struct Output {
-        var presentableError = Observable("")
-        var displayableSections: [TableSection] = [.heading, .detail]
-        var numberOfSections: Int { return displayableSections.count }
-        func numberOfRowsInSection(section: Int) -> Int { return displayableSections[section].numberOfRows }
-        func heightForRowInSection(section: Int, row: Int) -> Double { return displayableSections[section].displayableRows[row].rowHeight }
+        var saveEnable: Observable<Bool>
+        var presentableError: Observable<String>
+        var updatedContact: Observable<Contact?>
+        var displayableSections: Observable<[TableSection]>
     }
+    
+    var input: Input = Input(viewDidLoad: Observable(()),
+                             didTapSave: Observable(()),
+                             didEnterFirstName: Observable(""),
+                             didEnterLastName: Observable(""),
+                             didEnterEmail: Observable(""),
+                             didEnterPhoneNumber: Observable(""))
+    var output: Output = Output(saveEnable: Observable(false),
+                                presentableError: Observable(""),
+                                updatedContact: Observable(nil),
+                                displayableSections: Observable([]))
+    var worker: ContactsWorker
     
     init(contactId: String, factory: WorkerFactory) {
         worker = factory.makeContactsWorker()
         
-        input.fetchContact.observe(on: self) { [weak self] (_) in
+        input.viewDidLoad.observe(on: self) { [weak self] (_) in
             guard let self = self else { return }
-            self.input.setSaveEnable.value = false
+            self.output.saveEnable.value = false
             self.worker.getContact(contactId: contactId) { (contact) in
                 if let contact = contact {
                     self.input.didEnterFirstName.value = contact.firstName
                     self.input.didEnterLastName.value = contact.lastName
                     self.input.didEnterEmail.value = contact.email
                     self.input.didEnterPhoneNumber.value = contact.phoneNumber
-                    self.input.setSaveEnable.value = true
-                } else  {
+                    self.output.saveEnable.value = true
+                    self.output.displayableSections.value = [.heading, .detail]
+                } else {
                     self.output.presentableError.value = "Contact not found"
                 }
             }
@@ -61,7 +60,7 @@ class UpdateContactViewModel: UpdateContactViewModelType {
         
         input.didTapSave.observe(on: self) { [weak self] (_) in
             guard let self = self else { return }
-            self.input.setSaveEnable.value = false
+            self.output.saveEnable.value = false
             let contact = Contact(_id: contactId,
                                   firstName: self.input.didEnterFirstName.value,
                                   lastName: self.input.didEnterLastName.value,
@@ -70,12 +69,12 @@ class UpdateContactViewModel: UpdateContactViewModelType {
                                   createdAt: "",
                                   updatedAt: "")
             self.worker.updateContact(contactToUpdate: contact) { (contact) in
+                self.output.saveEnable.value = true
                 if let contact = contact {
-                    self.input.didUpdateContact.value = contact
+                    self.output.updatedContact.value = contact
                 } else {
                     self.output.presentableError.value = "Contact not updated"
                 }
-                self.input.setSaveEnable.value = true
             }
         }
     }

@@ -46,10 +46,10 @@ class UpdateContactViewControllerTests: XCTestCase {
         let phoneNumber = sut.tableView(sut.tableView, cellForRowAt: IndexPath(row: 3, section: 1)) as? UpdateContactInputDetailTableViewCell
         
         // then
-        XCTAssertEqual(firstNameCell?.placeholderLabel.text, displayableSections[1].displayableRows[0].placeholder)
-        XCTAssertEqual(lastNameCell?.placeholderLabel.text, displayableSections[1].displayableRows[1].placeholder)
-        XCTAssertEqual(emailCell?.placeholderLabel.text, displayableSections[1].displayableRows[2].placeholder)
-        XCTAssertEqual(phoneNumber?.placeholderLabel.text, displayableSections[1].displayableRows[3].placeholder)
+        XCTAssertEqual(firstNameCell?.placeholderLabel.text, displayableSections.value[1].displayableRows[0].placeholder)
+        XCTAssertEqual(lastNameCell?.placeholderLabel.text, displayableSections.value[1].displayableRows[1].placeholder)
+        XCTAssertEqual(emailCell?.placeholderLabel.text, displayableSections.value[1].displayableRows[2].placeholder)
+        XCTAssertEqual(phoneNumber?.placeholderLabel.text, displayableSections.value[1].displayableRows[3].placeholder)
     }
     
     func test_whenDisplayedTable_thenShouldReturnNumberOfRowsInSection() {
@@ -61,8 +61,8 @@ class UpdateContactViewControllerTests: XCTestCase {
         let detailsNumberOfRow = sut.tableView(sut.tableView, numberOfRowsInSection: 1)
         
         // then
-        XCTAssertEqual(avatarNumberOfRow, displayableSections[0].numberOfRows)
-        XCTAssertEqual(detailsNumberOfRow, displayableSections[1].numberOfRows)
+        XCTAssertEqual(avatarNumberOfRow, displayableSections.value[0].numberOfRows)
+        XCTAssertEqual(detailsNumberOfRow, displayableSections.value[1].numberOfRows)
     }
     
     func test_whenDisplayedTable_thenShouldReturnnumberOfSections() {
@@ -73,7 +73,7 @@ class UpdateContactViewControllerTests: XCTestCase {
         let avatarNumberOfRow = sut.numberOfSections(in: sut.tableView)
         
         // then
-        XCTAssertEqual(avatarNumberOfRow, displayableSections.count)
+        XCTAssertEqual(avatarNumberOfRow, displayableSections.value.count)
     }
     
     func test_whenGotError_thenPresentError() {
@@ -89,7 +89,7 @@ class UpdateContactViewControllerTests: XCTestCase {
         sut.beginAppearanceTransition(true, animated: false)
         sut.endAppearanceTransition()
         sut.viewModel.output.presentableError.observe(on: self) { (_) in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.async {
                 expect.fulfill()
             }
         }
@@ -110,8 +110,8 @@ class UpdateContactViewControllerTests: XCTestCase {
         window.rootViewController = sut
         
         // when
-        sut.viewModel.input.didUpdateContact.observe(on: self) { (_) in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        sut.viewModel.output.updatedContact.observe(on: self) { (_) in
+            DispatchQueue.main.async {
                 expect.fulfill()
             }
         }

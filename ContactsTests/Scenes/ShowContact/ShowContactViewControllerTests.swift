@@ -46,9 +46,9 @@ class ShowContactViewControllerTests: XCTestCase {
         let phoneNumber = sut.tableView(sut.tableView, cellForRowAt: IndexPath(row: 2, section: 1)) as? ShowContactDetailTableViewCell
         
         // then
-        XCTAssertEqual(fullnameCell?.placeholderLabel.text, displayableSections[1].displayableRows[0].placeholder)
-        XCTAssertEqual(emailCell?.placeholderLabel.text, displayableSections[1].displayableRows[1].placeholder)
-        XCTAssertEqual(phoneNumber?.placeholderLabel.text, displayableSections[1].displayableRows[2].placeholder)
+        XCTAssertEqual(fullnameCell?.placeholderLabel.text, displayableSections.value[1].displayableRows[0].placeholder)
+        XCTAssertEqual(emailCell?.placeholderLabel.text, displayableSections.value[1].displayableRows[1].placeholder)
+        XCTAssertEqual(phoneNumber?.placeholderLabel.text, displayableSections.value[1].displayableRows[2].placeholder)
     }
     
     func test_whenDisplayedTable_thenShouldReturnNumberOfRowsInSection() {
@@ -60,8 +60,8 @@ class ShowContactViewControllerTests: XCTestCase {
         let detailsNumberOfRow = sut.tableView(sut.tableView, numberOfRowsInSection: 1)
         
         // then
-        XCTAssertEqual(avatarNumberOfRow, displayableSections[0].numberOfRows)
-        XCTAssertEqual(detailsNumberOfRow, displayableSections[1].numberOfRows)
+        XCTAssertEqual(avatarNumberOfRow, displayableSections.value[0].numberOfRows)
+        XCTAssertEqual(detailsNumberOfRow, displayableSections.value[1].numberOfRows)
     }
     
     func test_whenDisplayedTable_thenShouldReturnnumberOfSections() {
@@ -72,7 +72,7 @@ class ShowContactViewControllerTests: XCTestCase {
         let avatarNumberOfRow = sut.numberOfSections(in: sut.tableView)
         
         // then
-        XCTAssertEqual(avatarNumberOfRow, displayableSections.count)
+        XCTAssertEqual(avatarNumberOfRow, displayableSections.value.count)
     }
     
     func test_whenGotError_thenPresentError() {
@@ -88,7 +88,7 @@ class ShowContactViewControllerTests: XCTestCase {
         sut.beginAppearanceTransition(true, animated: false)
         sut.endAppearanceTransition()
         sut.viewModel.output.presentableError.observe(on: self) { (_) in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.async {
                 expect.fulfill()
             }
         }
@@ -97,6 +97,19 @@ class ShowContactViewControllerTests: XCTestCase {
         // then
         waitForExpectations(timeout: 1.0, handler: nil)
         XCTAssert(sut.presentedViewController is UIAlertController)
+    }
+    
+    func test_whenTappedEdit_thenShouldShowUpdateContact() {
+        // given
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.rootViewController = sut
+        
+        // when
+        window.makeKeyAndVisible()
+        sut.didTapEdit()
+        
+        // then
+        XCTAssert(sut.presentedViewController is UpdateContactViewController)
     }
 
 }
