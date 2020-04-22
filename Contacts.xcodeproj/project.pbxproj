@@ -15,6 +15,7 @@
 		CF19C70A2443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C7092443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift */; };
 		CF19C70C244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF19C70B244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift */; };
 		CF7FD23D244FD09D00AE928C /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7FD23C244FD09D00AE928C /* ViewModelType.swift */; };
+		CF7FD240245042A700AE928C /* ObservableTextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7FD23F245042A700AE928C /* ObservableTextFieldTests.swift */; };
 		CF8560202449AB6100C52E36 /* ShowContactViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF85601F2449AB6100C52E36 /* ShowContactViewModelTests.swift */; };
 		CF8560232449E22900C52E36 /* UpdateContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8560222449E22900C52E36 /* UpdateContactViewController.swift */; };
 		CF8560262449E26100C52E36 /* UpdateContactViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8560252449E26100C52E36 /* UpdateContactViewControllerTests.swift */; };
@@ -72,6 +73,7 @@
 		CF19C7092443325100AFC7A9 /* CreateContactInputDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactInputDetailTableViewCell.swift; sourceTree = "<group>"; };
 		CF19C70B244332F000AFC7A9 /* CreateContactInputAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactInputAvatarTableViewCell.swift; sourceTree = "<group>"; };
 		CF7FD23C244FD09D00AE928C /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		CF7FD23F245042A700AE928C /* ObservableTextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableTextFieldTests.swift; sourceTree = "<group>"; };
 		CF85601F2449AB6100C52E36 /* ShowContactViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContactViewModelTests.swift; sourceTree = "<group>"; };
 		CF8560222449E22900C52E36 /* UpdateContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateContactViewController.swift; sourceTree = "<group>"; };
 		CF8560252449E26100C52E36 /* UpdateContactViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateContactViewControllerTests.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 		CF7FD23E2450424600AE928C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				CF7FD23F245042A700AE928C /* ObservableTextFieldTests.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				CFAFEDFF2441B9D7006557D1 /* Seeds.swift in Sources */,
 				CF19C6FB2442F24000AFC7A9 /* ListContactsViewModelTests.swift in Sources */,
 				CF8F875A2445AF060010AFD4 /* CreateContactViewControllerTests.swift in Sources */,
+				CF7FD240245042A700AE928C /* ObservableTextFieldTests.swift in Sources */,
 				CF19C6FD2443017400AFC7A9 /* Mocks.swift in Sources */,
 				CFAFEDED24404C1F006557D1 /* ContactsApiTests.swift in Sources */,
 				CF85602A2449E28300C52E36 /* UpdateContactViewModelTests.swift in Sources */,

@@ -11,10 +11,10 @@ import UIKit
 
 class ObservableTextField: UITextField {
     
-    var observable = Observable("") {
+    var observable: Observable<String>? {
         didSet {
-            text = observable.value
-            observable.observe(on: self) { [weak self] (text) in
+            text = observable?.value
+            observable?.observe(on: self) { [weak self] (text) in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     self.text = text
@@ -31,7 +31,7 @@ class ObservableTextField: UITextField {
     
     @objc func editingChange(textField: UITextField) {
         if let text = textField.text {
-            observable.value = text
+            observable?.value = text
         }
     }
 }
