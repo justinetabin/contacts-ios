@@ -90,5 +90,19 @@ class ListContactsViewControllerTests: XCTestCase {
         waitForExpectations(timeout: 1.0, handler: nil)
         XCTAssert(topViewController is ShowContactViewController)
     }
+    
+    func test_whenPulledToRefresh_thenShouldDisplayContacts() {
+        // given
+        let expect = expectation(description: "Wait for displayableContacts.observe() to receive a value")
+        
+        // when
+        sut.viewModel.output.displayableContacts.observe(on: self) { (_) in
+            expect.fulfill()
+        }
+        sut.didPullToRefresh()
+        
+        // then
+        waitForExpectations(timeout: 1.0, handler: nil)
+    }
 
 }

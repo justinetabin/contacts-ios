@@ -20,15 +20,28 @@ class ListContactsViewController: UITableViewController {
         title = "Contacts"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
         
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+        refreshControl?.beginRefreshing()
+        
         tableView.sectionIndexColor = UIColor.systemGray3
+        tableView.separatorStyle = .none
+        if let refreshControl = refreshControl {
+            tableView.contentOffset = CGPoint(x: 0, y: -(refreshControl.frame.height))
+        }
         
         viewModel.output.displayableContacts.observe(on: self) { [weak self] (_) in
             guard let self = self else { return }
             DispatchQueue.main.async {
+                self.refreshControl?.endRefreshing()
                 self.tableView.reloadData()
             }
         }
         
+        viewModel.input.viewDidLoad.value = ()
+    }
+    
+    @objc func didPullToRefresh() {
         viewModel.input.viewDidLoad.value = ()
     }
     
